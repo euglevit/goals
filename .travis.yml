@@ -2,3 +2,10 @@ language: node_js
 node_js: node
 services:
 - mongodb
+deploy:
+  provider: heroku
+  api_key:
+    secure: NAAYs2YfIreibOQrbx4ezx6wuxrUkhCwdTD1O4/Mz8czDX8RjJQfHX8k9MvEu1b76AtfwLdJH/VoWCqH5Ee8vUdD+tUoUsYggDEObdXFH9qCjKSIVoUJd+yFSPwQ6EfD4wGOHK45IIR5mu+Pey8jnHXzA2dgZd2MG/Q4M92nhMKkDKk8AQX1O5XzDNhuoGOyUQKS1ukRTEjDffZNyXxOg3YZKXSOOava8DfHDiIy1cf8Jm4i/qQRpO5hKdzXc7fFcpk0jzkSOSfiiZSLD6clK/h9OiXigaiOcmBSxnACS1sdB4WEyl5ww3c+yMFWZ28LRr0iiEGWZxI77as9hMj9dydUgPBRqgTx2Q2JYI/h6iEX1i9rNKVUkqMPXzy3G8jvhWlM9vnVHULON6VovuErgQr3J8/JEU2eWdHbjBsqaqT9rmKQBCgVG5A8MraFnUB/Kq0CMzeFuAWfHwFYrmJGACIPcPloVnTGXArDA+4MSKP+MkHKZEjdF3/4I9+H1mOun4OMJhyVNzRz0eygCJB0fvP1xxt2RuRh6/M/vNMODx78lq9sQVvAkEX5KwFBE18vf9kPLnJclI+MP95ny8oZnJXN489TXn69KIBUMiJTcUnDWsitwsWfNW9ux4L4lvyVkNuM6RmlhVBMwOp2iJYB/zat0pEKPCE3JvBzzVo3lXI=
+  app: ancient-inlet-40132
+  on:
+    repo: euglevit/goals
