@@ -1,0 +1,91 @@
+
+	[
+	{
+		"userId" : "joeshmo",
+		"goal": "Weight 180 pounds",
+		"date": "1511230055212",
+		"complete": false,
+		"shortTermGoals": [
+			{ 
+				"shortGoal": "Weight 230 pounds",
+				"date": "1511230055212",
+				"complete": false
+			},
+			{
+				"shortGoal": "Weight 205 punds",
+				"date": "1511230055212",
+				"complete": false
+			}
+		],
+		"updates": [
+			{
+				"update": "Today I excersized for 3 hours",
+				"date": "1511230055212"
+			}
+		]
+	},
+	{
+		"userId": "jane",
+		"goal": "Weight 100 pounds",
+		"date": "1511230055212",
+		"complete": false,
+		"shortTermGoals": [
+			{ 
+				"shortGoal": "Weight 150 pounds",
+				"date": "1511230055212",
+				"complete": false
+			},
+			{
+				"shortGoal": "Weight 120 pounds",
+				"date": "1511230055212",
+				"complete": false
+			}
+		],
+		"updates": [
+			{
+				"update": "Today I excersized for 3 hours",
+				"date": "1511230055212"
+
+
+			}
+
+
+		]
+	},
+	{
+		"userId": "jane",
+		"goal": "Get a tech job",
+		"date": "1511230055212",
+		"complete": false,
+		"shortTermGoals": [
+			{ 
+				"shortGoal": "Learn Javascript",
+				"date": "1511230055212",
+				"complete": false
+			},
+			{ 
+				"shortGoal": "Learn something",
+				"date": "1511230055212",
+				"complete": false
+			},
+			{ 
+				"shortGoal": "Learn something else",
+				"date": "1511230055212",
+				"complete": false
+			}
+			  
+		],
+		"updates": [
+			{
+				"update": "Today I programmed for 3 hours",
+				"date": "1511230055212"
+
+
+			}
+
+
+		]
+	}
+]
+
+
