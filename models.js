@@ -5,42 +5,41 @@ const goalsSchema = mongoose.Schema({
 		goal: {type: String, required: true},
 		date: {type: Date, default: Date.now},
 		complete: false,
-		shortTermGoals: [
-			{ 
-				shortGoal: String,
-				date: {type: Date, default: Date.now},
-				complete: false
-			},
-		],
-		updates: [
-			{
-				update: String,
-				date: Date.now(),
-			}
+		// shortTermGoals: [
+		// 	{ 
+		// 		shortGoal: String,
+		// 		date: {type: Date, default: Date.now},
+		// 		complete: false
+		// 	}
+		// ],
+		// updates: [
+		// 	{
+		// 		update: String,
+		// 		date: Date.now(),
+		// 	}
 
-		]
+		// ]
 	})
+// goalsSchema.virtual('shortGoals').get(function() {
+//   return [`${this.shortTermGoals.shortGoal}`, `${this.shortTermGoals.date}`, `${this.shortTermGoals.complete}`];
+// });
 
 goalsSchema.methods.apiRepr = function() {
   return {
-    userId : this._id,
+  	id : this._id,
+    userId : this.userId,
 	goal: this.goal,
 	date: this.date,
 	complete: this.complete,
-	shortTermGoals: [
-		{ 
-			shortGoal: this.shortGoal,
-			date: this.date,
-			complete: this.complete
-		},
-	],
-	updates: [
-		{
-			update: this.update,
-			date: this.date,
-		}
+// 	shortTermGoals: this.shortGoals,
+// 	updates: [
+// 		{
+// 			update: this.update,
+// 			date: this.date,
+// 		}
 
-	]
+// 	]
+// }
 }
 }
 
