@@ -1,46 +1,40 @@
 const mongoose = require('mongoose');
 
+const shortGoalsSchema = mongoose.Schema({
+	shortGoal: String,
+	date : {type: Date, default: Date.now},
+	complete: false
+})
+
+const updateSchema = mongoose.Schema({
+	update: String,
+	date : {type: Date, default: Date.now}
+})
+
 const goalsSchema = mongoose.Schema({
 		userId : {type: String, required: true},
 		goal: {type: String, required: true},
 		date: {type: Date, default: Date.now},
 		complete: false,
-		// shortTermGoals: [
-		// 	{ 
-		// 		shortGoal: String,
-		// 		date: {type: Date, default: Date.now},
-		// 		complete: false
-		// 	}
-		// ],
-		// updates: [
-		// 	{
-		// 		update: String,
-		// 		date: Date.now(),
-		// 	}
-
-		// ]
+		shortTermGoals: [shortGoalsSchema],
+		updates: [updateSchema]
 	})
+
+
 // goalsSchema.virtual('shortGoals').get(function() {
-//   return [`${this.shortTermGoals.shortGoal}`, `${this.shortTermGoals.date}`, `${this.shortTermGoals.complete}`];
-// });
+// 	this.shortTermGoals.forEach(goal => [this.shortTermGoals[goal].shortGoal]);
+// })
 
 goalsSchema.methods.apiRepr = function() {
-  return {
+  	return {
   	id : this._id,
     userId : this.userId,
 	goal: this.goal,
 	date: this.date,
 	complete: this.complete,
-// 	shortTermGoals: this.shortGoals,
-// 	updates: [
-// 		{
-// 			update: this.update,
-// 			date: this.date,
-// 		}
-
-// 	]
-// }
-}
+	shortTermGoals: this.shortTermGoals,
+	updates: this.updates
+	}
 }
 
 const GoalPost = mongoose.model('GoalPost', goalsSchema, 'goals');
