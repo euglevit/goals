@@ -2,19 +2,19 @@ const mongoose = require('mongoose');
 
 const shortGoalsSchema = mongoose.Schema({
 	shortGoal: String,
-	date : {type: Date, default: Date.now},
+	date : {type: Date, default: new Date()},
 	complete: false
 })
 
 const updateSchema = mongoose.Schema({
 	update: String,
-	date : {type: Date, default: Date.now},
+	date : {type: Date, default: new Date()},
 })
 
 const goalsSchema = mongoose.Schema({
 		userId : {type: String, required: true},
 		goal: {type: String, required: true},
-		date: {type: Date, default: Date.now},
+		date: {type: Date, default: new Date()},
 		complete: false,
 		shortTermGoals: [shortGoalsSchema],
 		updates: [updateSchema]

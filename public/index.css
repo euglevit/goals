@@ -6,13 +6,11 @@ h1{
 	align: center;
 
 }
-.goal-container {border: 1px solid black;margin-bottom: 8px;width: 90%;text-align: left;margin-left: auto;margin-right: auto;border-radius: 7px;background-color: rgba(255, 255, 255, .5);border-left: 20px solid  #FF3333;box-shadow: 0 5px 14px -2px grey;}
+.goal-container {border: 1px solid black;margin-bottom: 8px;width: 90%;text-align: left;margin-left: auto;margin-right: auto;border-radius: 7px;background-color: rgba(255, 255, 255, .5);border-left: 20px solid  #FF3333;box-shadow: 0 5px 14px -2px grey;position: relative;height: 199px;}
 .goal-container:hover {
     transform: scale(1.05, 1.05);
 }
-.goal-name {
-
-}
+.goal-name {/* display: inline; */width: 80%;text-align: center;}
 .short-goals {
 
 }
@@ -22,3 +20,34 @@ h1{
 .secondary-container{
 	
 }
+
+.update-class{display: none;}
+
+.view-updates-class{
+	display: none;
+}
+.short-goal-class{
+	display: none;
+}
+.delete-button{
+	display: inline;
+	left: 86%;
+	position: relative;
+	top: -4.5em;
+}
+.submit-data{
+
+}
+.navbar{display: block;height: 70px;background-color: blue;}
+.nav{display: inline;}
+.nav li{
+	display: inline;
+}
+@media only screen and (min-device-width : 375px) and (max-width: 667px) {
+	.goal-container {
+		height: 200px;
+	}
+}
+
+
+
