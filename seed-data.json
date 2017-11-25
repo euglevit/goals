@@ -1,17 +1,19 @@
-
-	[
+[
 	{
+		"_id" : "123456",
 		"userId" : "joeshmo",
 		"goal": "Weight 180 pounds",
 		"date": "1511230055212",
 		"complete": false,
 		"shortTermGoals": [
 			{ 
+				"_id" : "1234567",
 				"shortGoal": "Weight 230 pounds",
 				"date": "1511230055212",
 				"complete": false
 			},
 			{
+				"_id" : "12345678",
 				"shortGoal": "Weight 205 punds",
 				"date": "1511230055212",
 				"complete": false
@@ -19,23 +21,27 @@
 		],
 		"updates": [
 			{
+				"_id": "12345",
 				"update": "Today I excersized for 3 hours",
 				"date": "1511230055212"
 			}
 		]
 	},
 	{
+		"_id" : "123456789",
 		"userId": "jane",
 		"goal": "Weight 100 pounds",
 		"date": "1511230055212",
 		"complete": false,
 		"shortTermGoals": [
 			{ 
+				"_id" : "1234567891",
 				"shortGoal": "Weight 150 pounds",
 				"date": "1511230055212",
 				"complete": false
 			},
 			{
+				"_id" : "12345678912",
 				"shortGoal": "Weight 120 pounds",
 				"date": "1511230055212",
 				"complete": false
@@ -43,6 +49,7 @@
 		],
 		"updates": [
 			{
+				"_id" : "1234561",
 				"update": "Today I excersized for 3 hours",
 				"date": "1511230055212"
 
@@ -53,22 +60,26 @@
 		]
 	},
 	{
+		"_id" : "12345612",
 		"userId": "jane",
 		"goal": "Get a tech job",
 		"date": "1511230055212",
 		"complete": false,
 		"shortTermGoals": [
-			{ 
+			{
+				"_id" : "123456123",
 				"shortGoal": "Learn Javascript",
 				"date": "1511230055212",
 				"complete": false
 			},
-			{ 
+			{
+				"_id" : "1234561234",
 				"shortGoal": "Learn something",
 				"date": "1511230055212",
 				"complete": false
 			},
 			{ 
+				"_id" : "12345612345",
 				"shortGoal": "Learn something else",
 				"date": "1511230055212",
 				"complete": false
@@ -77,6 +88,7 @@
 		],
 		"updates": [
 			{
+				"_id" : "123456123456",
 				"update": "Today I programmed for 3 hours",
 				"date": "1511230055212"
 
@@ -87,5 +99,7 @@
 		]
 	}
 ]
+
+
 
 

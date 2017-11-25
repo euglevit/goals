@@ -1,108 +1,31 @@
 $(document).ready(function() {
-let MOCK_GOALS = {
-	"long_term_goals" : [
-	{
-		"id": "1111111",
-		"userId" : "joeshmo",
-		"goal": "Weight 180 pounds",
-		"date": Date.now(),
-		"complete": false,
-		"shortTermGoals": [
-			{ 
-				"shortGoal": "Weight 230 pounds",
-				"date": Date.now(),
-				"complete": false
-			},
-			{
-				"shortGoal": "Weight 205 punds",
-				"date": Date.now(),
-				"complete": false
-			}
-		],
-		"updates": [
-			{
-				"update": "Today I excersized for 3 hours",
-				"date": Date.now(),
-			}
-
-		]
-	},
-	{
-		"id": "1111112",
-		"userId": "jane",
-		"goal": "Weight 100 pounds",
-		"date": Date.now(),
-		"complete": false,
-		"shortTermGoals": [
-			{ 
-				"shortGoal": "Weight 150 pounds",
-				"date": Date.now(),
-				"complete": false
-			},
-			{
-				"shortGoal": "Weight 120 pounds",
-				"date": Date.now(),
-				"complete": false
-			}
-		],
-		"updates": [
-			{
-				"update": "Today I excersized for 3 hours",
-				"date": Date.now(),
+let goalData;
 
 
-			}
 
-
-		]
-	},
-	{
-		"id": "1111113",
-		"userId": "jane",
-		"goal": "Get a tech job",
-		"date": Date.now(),
-		"complete": "false",
-		"shortTermGoals": [
-			{ 
-				"shortGoal": "Learn Javascript",
-				"date": Date.now(),
-				"complete": "false"
-			},
-			{ 
-				"shortGoal": "Learn something",
-				"date": Date.now(),
-				"complete": "false"
-			},
-			{ 
-				"shortGoal": "Learn something else",
-				"date": Date.now(),
-				"complete": "false"
-			},
-			  
-		],
-		"updates": [
-			{
-				"update": "Today I programmed for 3 hours",
-				"date": Date.now(),
-
-
-			}
-
-
-		]
-	}
-
-]}
-
-
-function getGoals(callbackFn) {
-    setTimeout(function(){ callbackFn(MOCK_GOALS)}, 100);
+let myGoals = [];
+function getGoals() {
+	$.ajax({
+		type: 'GET',
+		url: 'http://localhost:8080/goals'
+	}).done(displayGoalsByUser)
 }
 
+function postUpdate(id,dataInfo) {
+	$.ajax({
+		type: 'POST',
+		url: `http://localhost:/goals/:${id}/updates`,
+		data: dataInfo
+	}).done(displayGoalsByUser)
+}
+	
+    // setTimeout(function(){ callbackFn(MOCK_GOALS)}, 100);
+
+
 // function displayGoals(data) {
-//     for (index in data.long_term_goals) {
+//     for (index in data) {
 //        $('body').append(
-//         '<p>' + data.long_term_goals[index].goal + '</p>');
+//         '<p>' + data[index].goal + '</p>');
 //     }
 // }
 
@@ -115,15 +38,21 @@ function getUser() {
 }
 
 function displayGoalsByUser(data) {
+	goalData = data;
+	console.log('goal data', goalData);
+	console.log(data, 'hello');
 	let user = 'jane';
-	for(let i = 0; i < data.long_term_goals.length; i++){
-		if(data.long_term_goals[i].userId === user){
-			$('.main-container').prepend(
+
+	for(let i = 0; i < data.length; i++){
+		console.log(i);
+		if(data[i].userId === user){
+			$('.secondary-container').append(
 				`
 				<div class='goal-container'>
+
 					<div class='goal-name'>
-						<h2>${data.long_term_goals[i].goal}</h2>
-						<div>
+						<h2>${data[i].goal}</h2>
+						
 								<div class="panel-group">
 								  <div class="panel panel-default">
 								    <div class="panel-heading">
@@ -132,7 +61,7 @@ function displayGoalsByUser(data) {
 								      </h4>
 								    </div>
 								    <div id="text${i}" class="panel-collapse collapse">
-								      <div class="panel-body"><textarea class='submit-data' rows="4" cols="50" value=${i}>Tell us about your progress today!</textarea><button class='submit-update' value=${i}>Submit</button></div>
+								      <div class="panel-body"><textarea class='submit-data' value=${i}>Tell us about your progress today!</textarea><button class='submit-update' value=${i}>Submit</button></div>
 								    </div>
 								  </div>
 								</div>
@@ -152,35 +81,69 @@ function displayGoalsByUser(data) {
 			        			</div>
 						</div>
 						<div class='short-goals${i}'>
+						<h2>Short Term Goals</h2>
 						</div>
 					</div>
 				</div>
 				`
 				);
-				data.long_term_goals[i].shortTermGoals.map( shortGoal =>$(`.short-goals${i}`).append(`<p>${shortGoal.shortGoal}</p>`));
-				data.long_term_goals[i].updates.map( update =>$(`.updates${i}`).append(`<li class='list-group-item'>${update.update}</li>`));	
+				data[i].shortTermGoals.map( shortGoal =>$(`.short-goals${i}`).append(`<p>${shortGoal.shortGoal}</p>`));
+				data[i].updates.map( update =>$(`.updates${i}`).append(`<li class='list-group-item'>${update.update}</li>`));
+				checkDate(data);
+				console.log(i);
+				if(i + 1 === data.length){
+					break;
+				}
 		};
 	};
 }
 
-function submitData(data){
-	$(document).on('click', '.submit-update', function(event) {
-		event.preventDefault();
-		let updateIndex = parseInt($(this).val());
-		let submitData = $(`.submit-data[value=${updateIndex}]`).val();
-		console.log(submitData);
-		let newUpdate = data.long_term_goals[updateIndex].updates.push({'update': submitData, Date: Date.now()});
 
-		$(`.updates${updateIndex}`).prepend(`<li class='list-group-item'>${data.long_term_goals[updateIndex].updates[data.long_term_goals[updateIndex].updates.length-1].update}</li>`);
-	})
-}
+
+function submitData(updateIndex,submitDataInfo){
+	console.log('other stuff');
+		// let newUpdate = goalData[updateIndex].updates.push({'update': submitDataInfo, date: Date.now()});
+		let pushUpdate = {'update': submitDataInfo, Date: Date.now()};
+		console.log(goalData);
+		let goalId = goalData[updateIndex]._id
+		console.log(goalId);
+    	$.ajax({
+        	type: `POST`,
+        	url: `http://localhost:8080/goals/${goalId}/updates`,
+        	data: { 
+            	update: submitDataInfo // < note use of 'this' here
+        },
+        success: function(result) {
+            alert('ok');
+        },
+        error: function(result) {
+            alert('error');
+        },
+        dataType: "json",
+        contentType: "application/json"
+    });
+    	// let notZero = goalData[updateIndex].updates[goalData[updateIndex].updates.length].update;
+    	
+
+		$(`.updates${updateIndex}`).prepend(`<li class='list-group-item'>${submitDataInfo}</li>`);
+	}
+
+$(document).on('click','.submit-update', function(event) {
+	console.log('goalData', goalData);
+	console.log('stuff');
+	let updateIndex = parseInt($(this).val());
+	console.log(updateIndex);
+	let submitDataInfo = $(`.submit-data[value=${updateIndex}]`).val();
+	submitData(updateIndex, submitDataInfo);
+})
+
 
 function newGoal() {
 
 	$(document).on('click', '.new-goal-button', function(event) {
 		event.preventDefault();
 		$('.new-goal').show();
-		$('.new-goal').append(
+		$('.new-goal').prepend(
 			`
 			<div class='new-goal-container'>
 				<div class='new-long-term-goal-header'>
@@ -199,6 +162,33 @@ function newGoal() {
 	})
 }
 
+function checkDate(data) {
+	let inputDate = new Date("11/25/2017");
+	let todaysDate = new Date();
+	todaysDate = todaysDate.setHours(0,0,0,0);
+	for(let i=0; i<data.length;i++){
+		try{
+			if(data[i].updates[data[i].updates.length-1].date !== undefined){
+				let updateDate = data[i].updates[data[i].updates.length-1].date;
+				console.log(updateDate);
+			}
+		}
+		catch(e){
+			console.log('error');
+		}
+	}
+		// let updateDateInt = parseInt(updateDate);
+		try{
+			if(todaysDate === updateDate.setHours(0,0,0,0) && updateDate != undefined){
+			$('.goal-container').css('border-left','20px solid #32CD32');
+			}
+		}catch(e){
+			console.log('error');
+		}
+	}
+	
+
+
 function submitNewGoals(data) {
 	$(document).on('click','.submit-new-goals', function(event) {
 		event.preventDefault();
@@ -206,16 +196,18 @@ function submitNewGoals(data) {
 		let shortTermGoal1 = $('.new-short-term-goals1').val();
 		let shortTermGoal2 = $('.new-short-term-goals2').val();
 		let shortTermGoal3 = $('.new-short-term-goals3').val();
-		let newObject = { "long_term_goals" : [{"id": "1111114","userId" : "jane","goal": longTermGoal,
+		let newObject = {"id": "1111114","userId" : "jane","goal": longTermGoal,
 			"date": Date.now(),"complete": false,
 			"shortTermGoals": [ { "shortGoal": shortTermGoal1, "date": Date.now(), "complete": "false" },
 			{ "shortGoal": shortTermGoal2, "date": Date.now(), "complete": "false" }, 
 			{  "shortGoal": shortTermGoal3, "date": Date.now(), "complete": "false" }], 
-			 "updates":[]}]};
-		data.long_term_goals.push(newObject);
-		displayGoalsByUser(newObject);
-		console.log(data.long_term_goals);
+			 "updates":[]};
+		data.push(newObject);
+		$('.secondary-container').html('');
 		$('.new-goal').html('');
+		
+		displayGoalsByUser(data);
+		console.log(data);
 		
 	})
 	// getGoals(displayGoalsByUser);
@@ -234,8 +226,8 @@ function getData(){
 }
 
 function newGoalData() {
-	getGoals(newGoal);
-	getGoals(submitNewGoals);
+	// getGoals(newGoal);
+	// getGoals(submitNewGoals);
 }
 
 function addUpdate() {
@@ -252,5 +244,5 @@ $(function() {
 
 })
 
-console.log(MOCK_GOALS);
+console.log('start');
 })

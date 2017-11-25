@@ -2,6 +2,7 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
+// const cors = require('cors');
 
 const {DATABASE_URL, PORT} = require('./config');
 const {GoalPost} = require('./models');
@@ -10,6 +11,8 @@ const app = express();
 
 app.use(morgan('common'));
 app.use(bodyParser.json());
+app.use(express.static('public'))
+// app.use(cors);
 
 mongoose.Promise = global.Promise;
 
@@ -18,7 +21,7 @@ app.get('/goals', (req, res) => {
   GoalPost
     .find()
     .then(posts => {
-      res.json(posts.map(post => post.apiRepr()));
+      res.json(posts);
     })
     .catch(err => {
       console.error(err);
@@ -56,11 +59,6 @@ app.post('/goals', (req, res) => {
       userId: "jane",
       complete: false,
       shortTermGoals: [
- //      {
- //      	shortGoal: req.body.shortGoal,
-	// 	date : req.body.date,
-	// 	complete: false
-	// }
 	],
 	updates: []
     })
@@ -100,6 +98,34 @@ app.post('/goals/:id/shortTermGoals', (req,res) => {
     });
 });
 
+app.post('/goals/:id/updates', (req,res) => {
+	const requiredFields = ['update'];
+	for (let i=0; i<requiredFields.length; i++) {
+    const field = requiredFields[i];
+    if (!(field in req.body)) {
+      const message = `Missing \`${field}\` in request body`
+      console.error(message);
+      return res.status(400).send(message);
+    }
+  }
+  GoalPost
+  	.findById(req.params.id)
+    .then(updatePost => {
+    	console.log(req.body.update);
+    		updatePost.updates = (updatePost.updates || []).concat({
+    		date : req.body.date,
+	      	update: req.body.update
+
+			
+		})
+  		updatePost.save()
+    	res.status(201).json(updatePost.apiRepr())
+    })
+    .catch(err => {
+        console.error(err);
+        res.status(500).json({error: 'Something went wrong'});
+    });
+});
 
 app.delete('/goals/:id', (req, res) => {
   GoalPost
@@ -114,9 +140,12 @@ app.delete('/goals/:id', (req, res) => {
 });
 
 //UPDATES GOAL
-app.put('/goals/:id', (req, res) => {
-  if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
+app.put('/goals/:_id', (req, res) => {
 
+  if (!(req.params._id && req.body._id && req.params._id === req.body._id)) {
+  	console.log(req.params._id);
+  	console.log(req.body);
+  	console.log(req.body._id);
 
     res.status(400).json({
       error: 'Request path id and request body id values must match'
@@ -124,39 +153,87 @@ app.put('/goals/:id', (req, res) => {
   }
 
   const updated = {};
-  const updateableFields = ['goal', 'shortGoal'];
+  const updateableFields = ['goal'];
   updateableFields.forEach(field => {
     if (field in req.body) {
       updated[field] = req.body[field];
     }
   });
 
+
   GoalPost
-    .findByIdAndUpdate(req.params.id, {$set: updated}, {new: true})
+    .findByIdAndUpdate(req.params._id, {$set: {"shortTermGoals.shortGoal" : "hello hello"}}, {new: true})
     .then(updatedPost => res.status(204).end())
     .catch(err => res.status(500).json({message: 'Something went wrong'}));
 });
 
 
 //UPDATES SHORT TERM GOAL
-app.put('/goals/:id/shortTermGoals/:id', (req, res) => {
-  if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
+app.put('/goals/:id/shortTermGoals/:_id', (req, res) => {
+  if (!(req.params._id && req.body._id && req.params._id === req.body._id)) {
     res.status(400).json({
       error: 'Request path id and request body id values must match'
     });
   }
+  const updated = req.body.shortGoal;
 
-  const updated = {};
-  const updateableFields = ['shortGoal'];
-  updateableFields.forEach(field => {
-    if (field in req.body) {
-      updated[field] = req.body[field];
-    }
-  });
+  console.log(updated);
 
+console.log(req.params._id);
   GoalPost
-    .findByIdAndUpdate(req.params.id, {$set: updated}, {new: true})
-    .then(updatedPost => res.status(204).end())
+  	// .find({'shortTermGoals': {$elemMatch : {'_id' : req.params._id}}})
+  	.findById(req.params.id)
+  	.then(longTermGoal => {
+  		const shortGoals = longTermGoal.shortTermGoals;
+  		shortGoals.forEach(shortTermGoal => {
+  			console.log('checking', shortTermGoal._id);
+  			if(shortTermGoal._id.toString() === req.params._id){
+
+  				console.log(typeof req.params._id, typeof shortTermGoal._id, shortTermGoal._id);
+
+  				console.log('found it!');
+  				shortTermGoal.shortGoal = updated;
+  			};
+  		});
+  		console.log(longTermGoal);
+  		longTermGoal.save()
+  		res.status(204).end();
+  	})
+    .catch(err => res.status(500).json({message: 'Something went wrong'}));
+})
+
+//UPDATE Updates
+app.put('/goals/:id/updates/:_id', (req, res) => {
+
+	if (!(req.params._id && req.body._id && req.params._id === req.body._id)) {
+    res.status(400).json({
+      error: 'Request path id and request body id values must match'
+    });
+}
+  const updated = req.body.update;
+
+  console.log(updated);
+
+console.log(req.params._id);
+
+	GoalPost
+    .findById(req.params.id)
+  	.then(longTermGoal => {
+  		const updatesToGoals = longTermGoal.updates;
+  		updatesToGoals.forEach(updatedGoal => {
+  			console.log('checking', updatedGoal._id);
+  			if(updatedGoal._id == req.params._id){
+
+  				// console.log(typeof req.params._id, typeof shortTermGoal._id, shortTermGoal._id);
+
+  				console.log('found it!');
+  				updatedGoal.update = updated;
+  			};
+  		});
+  		console.log(longTermGoal);
+  		longTermGoal.save()
+  		res.status(204).end();
+  	})
     .catch(err => res.status(500).json({message: 'Something went wrong'}));
 });
 

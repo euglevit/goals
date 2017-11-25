@@ -8,7 +8,7 @@ const shortGoalsSchema = mongoose.Schema({
 
 const updateSchema = mongoose.Schema({
 	update: String,
-	date : {type: Date, default: Date.now}
+	date : {type: Date, default: Date.now},
 })
 
 const goalsSchema = mongoose.Schema({
@@ -26,8 +26,9 @@ const goalsSchema = mongoose.Schema({
 // })
 
 goalsSchema.methods.apiRepr = function() {
+	console.log(this, 'hello');
   	return {
-  	id : this._id,
+  	_id : this._id,
     userId : this.userId,
 	goal: this.goal,
 	date: this.date,
