@@ -1,7 +1,9 @@
+// require('dotenv').config();
 const bodyParser = require('body-parser');
 const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
+const passport = require('passport');
 // const cors = require('cors');
 
 const {DATABASE_URL, PORT} = require('./config');
@@ -29,7 +31,21 @@ app.get('/goals', (req, res) => {
     });
 });
 
-app.get('/goals/:userId', (req, res) => {
+
+// app.get('/goals/:_id', (req, res) => {
+//   GoalPost
+//     .find({_id: req.params._id})
+//     .then(console.log('hey2'))
+//     .then(posts => {
+//       res.json(posts.map(post => post.apiRepr()));
+//     })
+//     .catch(err => {
+//       console.error(err);
+//       res.status(500).json({error: 'something went horribly awry'});
+//     });
+// });
+
+app.get('/goals/:userId/', (req, res) => {
   GoalPost
     .find({userId: req.params.userId})
     .then(console.log('hey'))
@@ -41,6 +57,9 @@ app.get('/goals/:userId', (req, res) => {
       res.status(500).json({error: 'something went horribly awry'});
     });
 });
+
+
+
 
 app.post('/goals', (req, res) => {
   const requiredFields = ['goal'];

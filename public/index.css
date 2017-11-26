@@ -1,4 +1,4 @@
-body{background-image: url('https://www.planwallpaper.com/static/images/518164-backgrounds.jpg');}
+body{/* background-image: url('https://www.planwallpaper.com/static/images/518164-backgrounds.jpg'); */background-color: #ededed;}
 h1{
 
 }
@@ -6,11 +6,11 @@ h1{
 	align: center;
 
 }
-.goal-container {border: 1px solid black;margin-bottom: 8px;width: 90%;text-align: left;margin-left: auto;margin-right: auto;border-radius: 7px;background-color: rgba(255, 255, 255, .5);border-left: 20px solid  #FF3333;box-shadow: 0 5px 14px -2px grey;position: relative;height: 199px;}
+.goal-container {/* border: 1px solid black; */margin-bottom: 8px;width: 90%;text-align: left;margin-left: auto;margin-right: auto;border-radius: 7px;border-left: 20px solid  #FF3333;box-shadow: 0 5px 14px -2px grey;position: relative;min-height: 200px;background-color: white;overflow: visible;}
 .goal-container:hover {
     transform: scale(1.05, 1.05);
 }
-.goal-name {/* display: inline; */width: 80%;text-align: center;}
+.goal-name {display: block;/* width: 80%; */text-align: center;height: 126px;}
 .short-goals {
 
 }
@@ -39,23 +39,62 @@ h1{
 }
 .delete-button{
 	display: inline;
-	left: 86%;
+	left: 70%;
 	position: relative;
-	top: -4.5em;
+	top: 2.5em;
+	border: none;
 }
-.submit-data{
+.delete-button:hover{
+	background-color: #fff;
+	transform: scale(1.05, 1.05);
+}
+.show-updates-button{
+	display: inline;
+	left: 68%;
+	position: relative;
+	top: 2.5em;
+	border: none;
+}
 
+.show-updates-button:hover {
+	background-color: #fff;
+	transform: scale(1.05, 1.05);
+}
+.show-updates-button:active {
+	background-color: #fff;
+	transform: scale(1.05, 1.05);
+}
+.show-updates{/* padding-bottom: 0px; */}
+.updates-list{
+	/*display: none;*/
+	border: none;
+	display: block;
+	margin-left: auto;
+	width: 80%;
+	margin-top: 35px;
+	padding-bottom: 32px;
+	margin-right: auto;
+	padding-left: 0px;
+}
+.submit-data{text-align: center;/* position: relative; */margin: auto;display: block;width: 80%;resize: none;}
+.submit-update{
+    border: 1px solid black;
+    margin-top: 20px;
 }
 .navbar{display: block;height: 40p;background-color: aqua;}
 .nav{display: inline;}
 .nav li{
 	display: inline;
 }
+h2 {
+	text-overflow: ellipsis;white-space: nowrap;overflow: hidden !important;
+}
 @media only screen and (min-device-width : 375px) and (max-width: 667px) {
 	.goal-container {
 		height: 200px;
 	}
 }
+
 
 
 

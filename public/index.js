@@ -52,15 +52,82 @@ function displayGoalsByUser(data) {
 
 	for(let i = 0; i < data.length; i++){
 		console.log(i);
-		if(data[i].userId === user){
+		if(data[i].userId === user && data[i].updates[data[i].updates.length-1] !== undefined ){
 			$('.secondary-container').prepend(
 				`
 				<div class='goal-container' val=${data[i]._id}>
 
 					<div class='goal-name'>
 						<h2>${data[i].goal}</h2>
+						<p class='last-updated' value=${data[i]._id}>Last update on ${new Date([data[i].updates[data[i].updates.length-1].date]).toLocaleDateString()}</p>
+						<textarea class='submit-data form-control' value=${data[i]._id}>Tell us about your progress today!</textarea>
+						<button class='btn submit-update' value=${data[i]._id}>Submit</button>
 						
-						<textarea class='submit-data form-control' value=${data[i]._id}>Tell us about your progress today!</textarea><button class='submit-update' value=${data[i]._id}>Submit</button>
+								<div class="panel-group update-class">
+								  <div class="panel panel-default">
+								    <div class="panel-heading">
+								      <h4 class="panel-title">
+								        <h2 data-toggle="collapse" href="#text${data[i]._id}">Add An Update</h2>
+								      </h4>
+								    </div>
+								    <div id="text${data[i]._id}" class="panel-collapse collapse">
+								      <div class="panel-body"><textarea class='submit-data' value=${data[i]._id}>Tell us about your progress today!</textarea><button class='submit-update' value=${data[i]._id}>Submit</button></div>
+								    </div>
+								  </div>
+								</div>
+								<div class="panel-group view-updates-class">
+								    <div class="panel panel-default">
+								      <div class="panel-heading">
+								        <h4 class="panel-title">
+								          <h2 data-toggle="collapse" href="#collapse${data[i]._id}">View Previous Updates</h2>
+								        </h4>
+								      </div>
+										<div id="collapse${data[i]._id}" class="panel-collapse collapse">
+			        						<ul class="updates${data[i]._id} list-group">
+			        						</ul>
+			        						
+			        					</div>
+			        				</div>
+			        			</div>
+						</div>
+						<div class='show-updates' data-toggle='collapse' data-target='#updates-collapse'></div>
+
+						<div class='short-goal-class short-goals${data[i]._id}'>
+						<h2>Short Term Goals</h2>
+						</div>
+						<button type="button" class="delete-button btn btn-default btn-sm" val=${data[i]._id}>
+          					<span class="glyphicon glyphicon-trash"></span> Trash </button>
+          				<button aria-expanded="false" type="button" data-toggle='collapse' data-target='#updates-collapse${data[i]._id}' class="collapse.in show-updates-button btn btn-default btn-sm" val=${data[i]._id}>
+				          <span class="glyphicon glyphicon-list-alt"></span> View Updates
+				        </button>
+				        <div class='show-updates collapse' id='updates-collapse${data[i]._id}' value=${data[i]._id}'>
+							<ul class='updates-list' val=${data[i]._id} ></ul>
+						</div>
+        				
+					</div>
+				</div>
+				`
+				);
+				data[i].shortTermGoals.map( shortGoal =>$(`.short-goals${i}`).append(`<p>${shortGoal.shortGoal}</p>`));
+				data[i].updates.map( update =>{
+					console.log(update);
+					$(`.updates-list[val=${data[i]._id}]`).prepend(`<li class='updates-list-li list-group-item'>${update.update} <p>${new Date(update.date).toLocaleDateString()}</p></li>`)
+				});
+				checkDate(data);
+				console.log(i);
+				if(i + 1 === data.length){
+					break;
+				}
+			}else{
+					$('.secondary-container').prepend(
+				`
+				<div class='goal-container' val=${data[i]._id}>
+
+					<div class='goal-name'>
+						<h2>${data[i].goal}</h2>
+						<p class='last-updated' value=${data[i]._id}>No updates!</p>
+						<textarea class='submit-data form-control' value=${data[i]._id}>Tell us about your progress today!</textarea>
+						<button class='btn submit-update' value=${data[i]._id}>Submit</button>
 						
 								<div class="panel-group update-class">
 								  <div class="panel panel-default">
@@ -95,22 +162,63 @@ function displayGoalsByUser(data) {
 						<button type="button" class="delete-button btn btn-default btn-sm" val=${data[i]._id}>
           					<span class="glyphicon glyphicon-trash"></span> Trash 
         				</button>
+        				<button aria-expanded="false" type="button" data-toggle='collapse' data-target='#updates-collapse${data[i]._id}' class="collapse.in show-updates-button btn btn-default btn-sm" val=${data[i]._id}>
+				          <span class="glyphicon glyphicon-list-alt"></span> View Updates
+				        </button>
+				        <div class='show-updates collapse' id='updates-collapse${data[i]._id}' value=${data[i]._id}'>
+							<ul class='updates-list' val=${data[i]._id} ></ul>
+						</div>
 					</div>
 				</div>
 				`
 				);
 				data[i].shortTermGoals.map( shortGoal =>$(`.short-goals${i}`).append(`<p>${shortGoal.shortGoal}</p>`));
-				data[i].updates.map( update =>$(`.updates${i}`).append(`<li class='list-group-item'>${update.update}</li>`));
+				data[i].updates.map( update =>{
+					console.log(update);
+					$(`.updates-list[val=${data[i]._id}]`).append(`<li class='list-group-item'>${update.update}</li>`)
+				});
 				checkDate(data);
 				console.log(i);
 				if(i + 1 === data.length){
 					break;
-				}
-		};
+				}	
+				};
+		
 	};
 }
 
-//Submit Update ON CLICK
+$(document).on('click','.show-updates-button',function(event) {
+	event.preventDefault();
+	let goalId = $(this).attr('val');
+	showUpdatesFunction(goalId);
+
+	// for(let i=0;i<5;i++){
+	// 	$(`.updates-list[value=${goalData._id}]`).append(
+	// 		`
+	// 		<li>${goalData[_id=goalId.}
+	// 		`)
+	
+})
+
+function showUpdatesFunction(goalId){
+	$.ajax({
+		type: 'GET',
+		url: `http://localhost:8080/goals/` 
+	}).done(function(data){
+		let dataIndex;
+		console.log(data);
+		console.log(goalId);
+		for(let i=0;i<data.length;i++){
+			if(data[i]._id === goalId){
+				dataIndex = i;
+			}
+		}
+		for(let i=0;i<data[dataIndex].updates.length;i++){
+			console.log(data[dataIndex].updates);
+		}
+	})
+}
+
 $(document).on('click','.submit-update', function(event) {
 	event.preventDefault();
 	let updateIndex = $(this)[0].value;
@@ -141,6 +249,8 @@ function submitData(updateIndex,submitDataInfo){
     }).done(function(data) {
 		console.log('check here',data);
 		$(`.goal-container[val=${goalId}]`).css('border-left','20px solid #32CD32');
+		$(`.last-updated[value=${goalId}]`).html(`<p class='last=updated' value=${goalId}}>Last update on ${new Date([data.updates[data.updates.length-1].date]).toLocaleDateString()}</p>`)
+		$(`.updates-list[val=${goalId}]`).prepend(`<li class='updates-list-li list-group-item'>${data.updates[data.updates.length-1].updates} <p>${new Date(data.updates[data.updates.length-1].date).toLocaleDateString()}</p></li>`)
 	})
 
     	// let notZero = goalData[updateIndex].updates[goalData[updateIndex].updates.length].update;
@@ -202,32 +312,27 @@ $(document).on('click', '.new-goal-button', function(event) {
 		`)
 })
 
-// 	<div class='new-short-term-goals-header'>
-// 				<h3>Enter in up to 3 Short Term Goals</h3>
-// 				<textarea class='new-short-term-goals1' rows="4" cols="50">Type Your Short Term Goals Here</textarea>
-// 				<textarea class='new-short-term-goals2' rows="4" cols="50">Type Your Short Term Goals Here</textarea>
-// 				<textarea class='new-short-term-goals3' rows="4" cols="50">Type Your Short Term Goals Here</textarea>
-// 			</div>
+
 
 
 
 //Sets the left border color to green if the goal has been updated today
-function checkDate(goalData) {
-	if(goalData.length === undefined){
-		goalData = [goalData];
+function checkDate(goals) {
+	if(goals.length === undefined){
+		goals = [goals];
 	}
 	let inputDate = new Date("11/25/2017");
 	let todaysDate = new Date();
 	console.log(todaysDate);
 	todaysDate = todaysDate.setHours(0,0,0,0);
-	for(let i=0; i<goalData.length;i++){
+	for(let i=0; i<goals.length;i++){
 		// let updateDate = data[i].updates[data[i].updates.length-1].date;
 		try{
-			if(goalData[i].updates[goalData[i].updates.length-1].date !== undefined){
-				let updateDate = new Date(goalData[i].updates[goalData[i].updates.length-1].date);
+			if(goals[i].updates[goals[i].updates.length-1].date !== undefined){
+				let updateDate = new Date(goals[i].updates[goals[i].updates.length-1].date);
 				if(todaysDate === updateDate.setHours(0,0,0,0) && updateDate != undefined){
 					console.log(updateDate);
-					$(`.goal-container[val=${goalData[i]._id}]`).css('border-left','20px solid #32CD32');
+					$(`.goal-container[val=${goals[i]._id}]`).css('border-left','20px solid #32CD32');
 					}
 			}
 		}
@@ -248,10 +353,10 @@ $(document).on('click','.submit-new-goals', function(event) {
 		"date": new Date(),"complete": false,
 		"shortTermGoals": [], 
 		 "updates":[]};
-	// goalData.push(newObject);
+	// goals.push(newObject);
 	// $('.secondary-container').html('');
 	$('.new-goal').html('');
-	submitNewUpdate(longTermGoal);
+	submitNewGoal(longTermGoal);
 
 		
 	// displayGoalsByUser(goalData);
@@ -259,8 +364,8 @@ $(document).on('click','.submit-new-goals', function(event) {
 		
 })
 
-//Submit new Update FUNCTION
-function submitNewUpdate(longTermGoal) {
+//Submit new Goal FUNCTION
+function submitNewGoal(longTermGoal) {
 	let data2 = JSON.stringify({goal : longTermGoal});
 	$.ajax({
         	type: `POST`,
