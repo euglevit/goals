@@ -20,6 +20,14 @@ h1{
 .secondary-container{
 	
 }
+.new-goal-button {font-size: 1.6em;}
+.username{
+	font-size: 30px;
+	margin-left: 5%;
+}
+.goal-button{
+	left: 67%;
+}
 
 .update-class{display: none;}
 
@@ -38,7 +46,7 @@ h1{
 .submit-data{
 
 }
-.navbar{display: block;height: 70px;background-color: blue;}
+.navbar{display: block;height: 40p;background-color: aqua;}
 .nav{display: inline;}
 .nav li{
 	display: inline;

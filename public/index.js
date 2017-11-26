@@ -43,6 +43,8 @@ function getUser() {
 	let user = 'jane';
 }
 
+
+
 function displayGoalsByUser(data) {
 	console.log('goal data', goalData);
 	console.log(data, 'hello');
@@ -57,6 +59,7 @@ function displayGoalsByUser(data) {
 
 					<div class='goal-name'>
 						<h2>${data[i].goal}</h2>
+						
 						<textarea class='submit-data form-control' value=${data[i]._id}>Tell us about your progress today!</textarea><button class='submit-update' value=${data[i]._id}>Submit</button>
 						
 								<div class="panel-group update-class">
