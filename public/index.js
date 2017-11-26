@@ -1,6 +1,14 @@
 $(document).ready(function() {
 let goalData;
 
+let errorMessageIDs = [
+	"username-taken",
+	"password-length",
+	"username-length",
+	"no-match",
+	"empty-fields"
+];
+
 
 
 let myGoals = [];
@@ -8,32 +16,73 @@ function getGoals() {
 	$.ajax({
 		type: 'GET',
 		url: 'http://localhost:8080/goals'
+		// headers: {
+		// 	"Authorization": `Bearer ${state.token}`
+		// }
 	}).done(function(data){
 		goalData = data;
 		displayGoalsByUser(data);
 	})
 }
 
-function postUpdate(id,dataInfo) {
-	$.ajax({
-		type: 'POST',
-		url: `http://localhost:/goals/:${id}/updates`,
-		data: dataInfo
-	}).done(function(data) {
-		console.log('check here',data);
-		$(`.goal-container[val=${goalData[i]._id}]`).css('border-left','20px solid #32CD32');
-	})
-}
+function signUp(username, password) {
 	
-    // setTimeout(function(){ callbackFn(MOCK_GOALS)}, 100);
+		let userData = {
+			username: username,
+			password: password
+		};
+	
+		//api/auth/login
+		return new Promise ((resolve, reject) => {
+			$.ajax({
+					method: 'POST',
+					url: '/api/users',
+					data: JSON.stringify(userData),
+					contentType: 'application/json; charset=utf-8',
+					dataType: 'text json',
+					success: function(data){ resolve(data); },
+					error: function(data){ reject(data.responseJSON); }
+				})
+			})
+}
+  
+function handleSignupErrors(errorMessage) {
+	
+		if(errorMessage === "Username already taken") {
+			hideAllErrorMessages();
+			$('#username-taken').removeClass('hidden');
+		}
+		if(errorMessage === "Must be at least 1 characters long") {
+			hideAllErrorMessages();
+			$('#username-length').removeClass('hidden');
+		}
+		if(errorMessage === "Must be at least 5 characters long") {
+			hideAllErrorMessages();
+			$('#password-length').removeClass('hidden');
+		}
+	}
+	//handles the sign up
+$('#sign-up-form-js').submit(function(event) {
+	event.preventDefault();
+	let username = $('#username-js-signup').val();
+	let password = $('#password-js-signup').val();
+	signUp(username, password);
+});
 
+//handles the Log in
+$('#login-form-js').submit(function(event) {
+	event.preventDefault();
+	let username = $('#username-js-login').val();
+	let password = $('#password-js-login').val();
+	handleAuth('auth/login', username, password);
+});
 
-// function displayGoals(data) {
-//     for (index in data) {
-//        $('body').append(
-//         '<p>' + data[index].goal + '</p>');
-//     }
-// }
+function hideAllErrorMessages() {
+	for(let i = 0; i < errorMessageIDs.length; i++) {
+		let id = errorMessageIDs[i];
+		$('#' + id).addClass('hidden');
+	}
+}
 
 function getAndDisplay() {
     getGoals(displayGoals);

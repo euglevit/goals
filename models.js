@@ -18,7 +18,8 @@ const goalsSchema = mongoose.Schema({
 		complete: false,
 		shortTermGoals: [shortGoalsSchema],
 		updates: [updateSchema]
-	})
+})
+
 
 
 // goalsSchema.virtual('shortGoals').get(function() {
