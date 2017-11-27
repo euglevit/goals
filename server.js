@@ -4,6 +4,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const passport = require('passport');
+const passportJWT = require("passport-jwt");
 // const cors = require('cors');
 
 const {DATABASE_URL, PORT} = require('./config');
@@ -12,6 +13,7 @@ const {GoalPost} = require('./models');
 const app = express();
 const {router: usersRouter} = require('./users');
 const {router: authRouter, basicStrategy, jwtStrategy} = require('./auth');
+// const {router: loginRouter} = require('./login');
 
 app.use(morgan('common'));
 app.use(bodyParser.json());
@@ -86,8 +88,6 @@ app.get('/goals/:userId/', (req, res) => {
       res.status(500).json({error: 'something went horribly awry'});
     });
 });
-
-
 
 
 app.post('/goals', (req, res) => {

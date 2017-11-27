@@ -1,14 +1,6 @@
 $(document).ready(function() {
 let goalData;
 
-let errorMessageIDs = [
-	"username-taken",
-	"password-length",
-	"username-length",
-	"no-match",
-	"empty-fields"
-];
-
 
 
 let myGoals = [];
@@ -25,64 +17,65 @@ function getGoals() {
 	})
 }
 
-function signUp(username, password) {
+//handles the sign up FUNCTION
+// function signUp(username, password) {
 	
-		let userData = {
-			username: username,
-			password: password
-		};
+// 		let userData = {
+// 			username: username,
+// 			password: password
+// 		};
 	
-		//api/auth/login
-		return new Promise ((resolve, reject) => {
-			$.ajax({
-					method: 'POST',
-					url: '/api/users',
-					data: JSON.stringify(userData),
-					contentType: 'application/json; charset=utf-8',
-					dataType: 'text json',
-					success: function(data){ resolve(data); },
-					error: function(data){ reject(data.responseJSON); }
-				})
-			})
-}
+// 		//api/auth/login
+// 		return new Promise ((resolve, reject) => {
+// 			$.ajax({
+// 					method: 'POST',
+// 					url: '/api/users',
+// 					data: JSON.stringify(userData),
+// 					contentType: 'application/json; charset=utf-8',
+// 					dataType: 'text json',
+// 					success: function(data){ resolve(data); },
+// 					error: function(data){ reject(data.responseJSON); }
+// 				})
+// 			})
+// }
   
-function handleSignupErrors(errorMessage) {
-	
-		if(errorMessage === "Username already taken") {
-			hideAllErrorMessages();
-			$('#username-taken').removeClass('hidden');
-		}
-		if(errorMessage === "Must be at least 1 characters long") {
-			hideAllErrorMessages();
-			$('#username-length').removeClass('hidden');
-		}
-		if(errorMessage === "Must be at least 5 characters long") {
-			hideAllErrorMessages();
-			$('#password-length').removeClass('hidden');
-		}
-	}
-	//handles the sign up
-$('#sign-up-form-js').submit(function(event) {
-	event.preventDefault();
-	let username = $('#username-js-signup').val();
-	let password = $('#password-js-signup').val();
-	signUp(username, password);
-});
+// 	//handles the sign up
+// $('#sign-up-form-js').submit(function(event) {
+// 	event.preventDefault();
+// 	let username = $('#username-js-signup').val();
+// 	let password = $('#password-js-signup').val();
+// 	signUp(username, password);
+// });
 
-//handles the Log in
-$('#login-form-js').submit(function(event) {
-	event.preventDefault();
-	let username = $('#username-js-login').val();
-	let password = $('#password-js-login').val();
-	handleAuth('auth/login', username, password);
-});
+// //handles the Log in
+// $('#login-form-js').submit(function(event) {
+// 	event.preventDefault();
+// 	let username = $('#username-js-login').val();
+// 	let password = $('#password-js-login').val();
+// 	logIn(username, password);
+// });
 
-function hideAllErrorMessages() {
-	for(let i = 0; i < errorMessageIDs.length; i++) {
-		let id = errorMessageIDs[i];
-		$('#' + id).addClass('hidden');
-	}
-}
+// function logIn(username, password) {
+// 	let userData = {
+// 		username: username,
+// 		password: password
+// 	};
+// 	return new Promise((resolve, reject) => {
+// 		$.ajax({
+// 			method: 'POST',
+// 			url: '/login',
+// 			data: JSON.stringify({username, password}),
+// 			contentType: 'application/json; charset=utf-8',
+// 			dataType: 'json',
+// 			success: function(data){ 
+// 				localStorage.setItem('authToken', data.authToken);
+// 				resolve();
+// 			},
+// 			error: function(data){ reject(data); }
+// 		});
+// 	});
+// }
+
 
 function getAndDisplay() {
     getGoals(displayGoals);
@@ -145,9 +138,9 @@ function displayGoalsByUser(data) {
 						<h2>Short Term Goals</h2>
 						</div>
 						<button type="button" class="delete-button btn btn-default btn-sm" val=${data[i]._id}>
-          					<span class="glyphicon glyphicon-trash"></span> Trash </button>
+          					<span class="glyphicon glyphicon-trash"></span> <span class='trash'>Trash</span> </button>
           				<button aria-expanded="false" type="button" data-toggle='collapse' data-target='#updates-collapse${data[i]._id}' class="collapse.in show-updates-button btn btn-default btn-sm" val=${data[i]._id}>
-				          <span class="glyphicon glyphicon-list-alt"></span> View Updates
+				          <span class="glyphicon glyphicon-list-alt"></span> <span class='view-updates'>View Updates</span>
 				        </button>
 				        <div class='show-updates collapse' id='updates-collapse${data[i]._id}' value=${data[i]._id}'>
 							<ul class='updates-list' val=${data[i]._id} ></ul>
@@ -209,10 +202,10 @@ function displayGoalsByUser(data) {
 						<h2>Short Term Goals</h2>
 						</div>
 						<button type="button" class="delete-button btn btn-default btn-sm" val=${data[i]._id}>
-          					<span class="glyphicon glyphicon-trash"></span> Trash 
+          					<span class="glyphicon glyphicon-trash"></span> <span class='trash'>Trash</span> 
         				</button>
         				<button aria-expanded="false" type="button" data-toggle='collapse' data-target='#updates-collapse${data[i]._id}' class="collapse.in show-updates-button btn btn-default btn-sm" val=${data[i]._id}>
-				          <span class="glyphicon glyphicon-list-alt"></span> View Updates
+				          <span class="glyphicon glyphicon-list-alt"></span> <span class='view-updates'>View Updates</span>
 				        </button>
 				        <div class='show-updates collapse' id='updates-collapse${data[i]._id}' value=${data[i]._id}'>
 							<ul class='updates-list' val=${data[i]._id} ></ul>
@@ -299,11 +292,11 @@ function submitData(updateIndex,submitDataInfo){
 		console.log('check here',data);
 		$(`.goal-container[val=${goalId}]`).css('border-left','20px solid #32CD32');
 		$(`.last-updated[value=${goalId}]`).html(`<p class='last=updated' value=${goalId}}>Last update on ${new Date([data.updates[data.updates.length-1].date]).toLocaleDateString()}</p>`)
-		$(`.updates-list[val=${goalId}]`).prepend(`<li class='updates-list-li list-group-item'>${data.updates[data.updates.length-1].updates} <p>${new Date(data.updates[data.updates.length-1].date).toLocaleDateString()}</p></li>`)
+		$(`.updates-list[val=${goalId}]`).prepend(`<li class='updates-list-li list-group-item'>${data.updates[data.updates.length-1].update} <p>${new Date(data.updates[data.updates.length-1].date).toLocaleDateString()}</p></li>`)
 	})
 
     	// let notZero = goalData[updateIndex].updates[goalData[updateIndex].updates.length].update;
-		$(`.updates${updateIndex}`).prepend(`<li class='list-group-item'>${submitDataInfo}</li>`);
+		// $(`.updates-list[val=${updateIndex}]`).prepend(`<li class='list-group-item'>${submitDataInfo}</li>`);
 }
 
 //Delete Goal ON CLICK

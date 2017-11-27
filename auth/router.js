@@ -16,7 +16,8 @@ const router = express.Router();
 
 router.post(
     '/login',
-    // The user provides a username and password to login
+    
+
     passport.authenticate('basic', {session: false}),
     (req, res) => {
         const authToken = createAuthToken(req.user.apiRepr());
@@ -34,22 +35,5 @@ router.post(
         res.json({authToken});
     }
 );
-
-exports.sign_in = function(req, res) {
-    User.findOne({
-      username: req.body.username
-    }, function(err, user) {
-      if (err) throw err;
-      if (!user) {
-        res.status(401).json({ message: 'Authentication failed. User not found.' });
-      } else if (user) {
-        if (!user.comparePassword(req.body.password)) {
-          res.status(401).json({ message: 'Authentication failed. Wrong password.' });
-        } else {
-          return res.json({token: jwt.sign({ username: username, password: password})});
-        }
-      }
-    });
-  };
 
 module.exports = {router};

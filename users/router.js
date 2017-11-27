@@ -10,28 +10,10 @@ const jsonParser = bodyParser.json();
 
 // Post to register a new user
 
-// router.get('/', jsonParser, (req, res) => {
-//     User
-//       .find()
-//       .then(posts => {
-//         res.json(posts);
-//       })
-//       .catch(err => {
-//         console.error(err);
-//         res.status(500).json({error: 'something went terribly wrong'});
-//       });
-//   });
 router.post('/', jsonParser, (req, res) => {
   const requiredFields = ['username', 'password'];
   const missingField = requiredFields.find(field => !(field in req.body));
 
-  // if (missingField) {
-  //   return res.status(422).json({
-  //     reason: 'ValidationError',
-  //     message: 'Missing field',
-  //     location: missingField
-  //   });
-  // }
 
   User.create({
     username: req.body.username,

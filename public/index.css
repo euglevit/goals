@@ -1,34 +1,43 @@
-body{/* background-image: url('https://www.planwallpaper.com/static/images/518164-backgrounds.jpg'); */background-color: #ededed;}
+body{background-image: url('https://www.planwallpaper.com/static/images/twe_background-1920x1080.jpg');/* background-color: yellow; */}
 h1{
 
 }
 .main-container {
-	align: center;
-
+	margin-bottom: 0px;
 }
-.goal-container {/* border: 1px solid black; */margin-bottom: 8px;width: 90%;text-align: left;margin-left: auto;margin-right: auto;border-radius: 7px;border-left: 20px solid  #FF3333;box-shadow: 0 5px 14px -2px grey;position: relative;min-height: 200px;background-color: white;overflow: visible;}
+.goal-container {/* border: 1px solid black; */margin-bottom: 8px;width: 90%;text-align: left;margin-left: auto;margin-right: auto;border-radius: 7px;border-left: 20px solid  #FF3333;box-shadow: 0 5px 14px -2px grey;position: relative;min-height: 200px;background-color: white;overflow: visible;max-width: 585px;}
 .goal-container:hover {
     transform: scale(1.05, 1.05);
 }
 .goal-name {display: block;/* width: 80%; */text-align: center;height: 126px;}
 .short-goals {
-
 }
 .updates{
 
 }
 .secondary-container{
-	
+	margin-bottom: 25px;
 }
-.new-goal-button {font-size: 1.6em;}
+.new-goal-button {font-size: 1.6em;color: white;}
+.new-goal-button:hover{
+	transform: scale(1.10, 1.10);
+}
 .username{
 	font-size: 30px;
 	margin-left: 5%;
+	color: white;
 }
 .goal-button{
 	left: 67%;
 }
-
+.footer {
+	position: fixed;
+	width: 100%;
+	background-color: #f2f2f2;
+	height: 40px;
+	bottom: 0px;
+	clear: both;
+}
 .update-class{display: none;}
 
 .view-updates-class{
@@ -81,18 +90,50 @@ h1{
     border: 1px solid black;
     margin-top: 20px;
 }
-.navbar{display: block;height: 40p;background-color: aqua;}
+.navbar{display: block;height: 40px;background-color: #4267b2;top: 0px;margin-top: 0px;}
 .nav{display: inline;}
 .nav li{
 	display: inline;
 }
+.leftbar{
+	min-height: 106%;
+	width: 4%;
+	background-color: #4267b2;
+	display: inline;
+	position: absolute;
+	/* background: no-repeat; */
+}
 h2 {
 	text-overflow: ellipsis;white-space: nowrap;overflow: hidden !important;
 }
+.view-updates{
+
+}
 @media only screen and (min-device-width : 375px) and (max-width: 667px) {
 	.goal-container {
-		height: 200px;
+		min-height: 200px;
 	}
+}
+
+@media all and (max-width: 655px) {
+	.delete-button {left: 68%;}
+	.show-updates-button{
+	left: 66%;
+	}
+
+
+}
+
+@media all and (max-width: 620px) {
+	.delete-button {left: 65%;}
+	.show-updates-button{left: 63%;}
+}
+
+@media all and (max-width: 577px) {
+	.view-updates, .trash{
+		font-size: 0px;
+	}
+	
 }
 
 
