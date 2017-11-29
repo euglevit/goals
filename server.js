@@ -15,7 +15,7 @@ const {router: usersRouter} = require('./users');
 const {router: authRouter, basicStrategy, jwtStrategy} = require('./auth');
 // const {router: loginRouter} = require('./login');
 
-app.use(morgan('common'));
+app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(express.static('public'))
 // app.use(cors);
@@ -36,18 +36,12 @@ passport.use(jwtStrategy);
 
 app.use('/api/users/', usersRouter);
 app.use('/api/auth/', authRouter);
+app.use('/api/login', usersRouter);
+app.use('/api/protected', usersRouter)
 
 mongoose.Promise = global.Promise;
 
-app.get(
-    '/api/protected',
-    passport.authenticate('jwt', {session: false}),
-    (req, res) => {
-        return res.json({
-            data: 'rosebud'
-        });
-    }
-);
+
 
 
 app.get('/goals', (req, res) => {

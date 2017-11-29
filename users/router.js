@@ -1,23 +1,27 @@
 'use strict';
 const express = require('express');
 const bodyParser = require('body-parser');
+const jwt = require('jsonwebtoken');
 
 const {User} = require('./models');
 
 const router = express.Router();
 
-const jsonParser = bodyParser.json();
+// const jsonParser = bodyParser.json();
 
 // Post to register a new user
 
-router.post('/', jsonParser, (req, res) => {
+router.post('/', (req, res) => {
   const requiredFields = ['username', 'password'];
   const missingField = requiredFields.find(field => !(field in req.body));
+  console.log(req.body);
 
 
   User.create({
     username: req.body.username,
     password: req.body.password
+  }).then(user => {
+    res.status(201).json(user);
   })
 
 
@@ -133,14 +137,77 @@ router.post('/', jsonParser, (req, res) => {
     });
 });
 
-// Never expose all your users like below in a prod application
-// we're just doing this so we have a quick way to see
-// if we're creating users. keep in mind, you can also
-// verify this in the Mongo shell.
+// router.post('/login', (req, res) => {
+//   const { username, password } = req.body
+//   if (!username) {
+//       return res.status(400).send('Username is missing')
+//   }
+//   if (!password) {
+//       return res.status(400).send('Password is missing')
+//   }
+//   User.findOne({ username }).then(userExist => {
+//       if (!userExist) {
+//           return res.status(400).send('User not exist plz signup first')
+//       }
+
+//       const isValidPwd = bcrypt.compareSync(password, userExist.password)
+
+//       if (!isValidPwd) {
+//           return res.status(400).send('Incorect credentiels')
+//       }
+
+//       return res.status(200).json(userExist)
+//   })
+// })
 router.get('/', (req, res) => {
   return User.find()
     .then(users => res.json(users.map(user => user.apiRepr())))
     .catch(err => res.status(500).json({message: 'Internal server error'}));
 });
+
+router.post('/login', (req, res) => {
+  const user = [ { id: 3}];
+  const token = jwt.sign({user}, 'my_secret_key');
+  res.json({
+    token : token
+  });
+});
+
+router.get('/protected', ensureToken, (req,res) => {
+  console.log(req.token);
+
+  jwt.verify(req.token, 'my_secret_key', function(err,data) {
+    if (err) {
+      res.sendStatus(403);
+      console.log(req.token);
+    }
+    else {
+      res.json({
+        text : 'this is protected',
+        data : data
+      });
+    }
+  })
+  res.json({
+    text: 'this is protected'
+  });
+})
+
+function ensureToken(req, res, next){
+  const bearerHeader = req.headers['authorization'];
+  if(typeof bearerHeader !== 'undefined') {
+    const bearer = bearerHeader.split('');
+    const bearerToken = bearer[1];
+    req.token = bearerToken;
+    next();
+  }else {
+    res.sendStatus(403);
+  }
+}
+// Never expose all your users like below in a prod application
+// we're just doing this so we have a quick way to see
+// if we're creating users. keep in mind, you can also
+// verify this in the Mongo shell.
+
 
 module.exports = {router};

@@ -5,7 +5,7 @@ h1{
 .main-container {
 	margin-bottom: 0px;
 }
-.goal-container {/* border: 1px solid black; */margin-bottom: 8px;width: 90%;text-align: left;margin-left: auto;margin-right: auto;border-radius: 7px;border-left: 20px solid  #FF3333;box-shadow: 0 5px 14px -2px grey;position: relative;min-height: 200px;background-color: white;overflow: visible;max-width: 585px;}
+.goal-container {border: 1px solid #dddfe2;margin-bottom: 8px;width: 90%;text-align: left;margin-left: auto;margin-right: auto;border-radius: 3px;border-left: 20px solid  #FF3333;box-shadow: 0 5px 14px -2px grey;position: relative;min-height: 200px;background-color: white;overflow: visible;max-width: 585px;box-sizing: inherit;}
 .goal-container:hover {
     transform: scale(1.05, 1.05);
 }
@@ -15,6 +15,12 @@ h1{
 .updates{
 
 }
+.appname{
+	font-size: 30px;
+	color: white;
+	left: 26%;
+	overflow: none;
+}
 .secondary-container{
 	margin-bottom: 25px;
 }
@@ -22,13 +28,32 @@ h1{
 .new-goal-button:hover{
 	transform: scale(1.10, 1.10);
 }
+.new-goal-container{
+	margin-bottom: 8px;
+	width: 90%;
+	text-align: left;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 7px;
+	/* border-left: 20px solid #FF3333; */
+	box-shadow: 0 5px 14px -2px grey;
+	position: relative;
+	min-height: 200px;
+	background-color: white;
+	overflow: visible;
+	max-width: 585px;
+	background-color: white;
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 585px;
+}
 .username{
 	font-size: 30px;
 	margin-left: 5%;
 	color: white;
 }
 .goal-button{
-	left: 67%;
+	margin-left: 54%;
 }
 .footer {
 	position: fixed;
@@ -50,7 +75,7 @@ h1{
 	display: inline;
 	left: 70%;
 	position: relative;
-	top: 2.5em;
+	top: -0.5em;
 	border: none;
 }
 .delete-button:hover{
@@ -61,7 +86,7 @@ h1{
 	display: inline;
 	left: 68%;
 	position: relative;
-	top: 2.5em;
+	top: -0.5em;
 	border: none;
 }
 
@@ -89,9 +114,10 @@ h1{
 .submit-update{
     border: 1px solid black;
     margin-top: 20px;
+    width: 80px;
 }
 .navbar{display: block;height: 40px;background-color: #4267b2;top: 0px;margin-top: 0px;}
-.nav{display: inline;}
+.nav{display: inline;white-space: nowrap;margin-left: auto;margin-right: auto;width: 90%;position: relative;display: block;}
 .nav li{
 	display: inline;
 }
@@ -103,12 +129,34 @@ h1{
 	position: absolute;
 	/* background: no-repeat; */
 }
+.updates-date{
+	text-align: right;
+	font-size: 12px;
+}
+.footer p{
+	left: 29px;
+	top: 10px;
+	position: relative;
+}
+.updates-list-li{
+	font-size: 17px;
+}
 h2 {
-	text-overflow: ellipsis;white-space: nowrap;overflow: hidden !important;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden !important;
+	text-align: left;
+	top: -15px;
+	position: relative;
+	font-size: 23px;
+	margin-left: 18px;
+	margin-bottom: 12px;
+	/* height: 36%; */
 }
 .view-updates{
 
 }
+.last-updated{/* text-align: right; */display: inline;font-size: 14px;float: right;position: relative;top: 10px;margin-right: 10px;}
 @media only screen and (min-device-width : 375px) and (max-width: 667px) {
 	.goal-container {
 		min-height: 200px;
@@ -127,11 +175,23 @@ h2 {
 @media all and (max-width: 620px) {
 	.delete-button {left: 65%;}
 	.show-updates-button{left: 63%;}
+	.goal-button{
+		margin-left: 47%;
+	}
+	.appname{
+		left: 22%;
+	}
 }
 
 @media all and (max-width: 577px) {
 	.view-updates, .trash{
 		font-size: 0px;
+	}
+	.goal-button{
+		margin-left: 39%;
+	}
+	.appname{
+		left: 18%;
 	}
 	
 }

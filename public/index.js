@@ -1,6 +1,10 @@
 $(document).ready(function() {
 let goalData;
 
+//url: 'ewgnwiegun'
+// headers: { authorization: yourjwt }
+// method: 'POST'
+
 
 
 let myGoals = [];
@@ -18,63 +22,77 @@ function getGoals() {
 }
 
 //handles the sign up FUNCTION
-// function signUp(username, password) {
+function signUp(username, password) {
 	
-// 		let userData = {
-// 			username: username,
-// 			password: password
-// 		};
+		let userData = {
+			username: username,
+			password: password
+		};
 	
-// 		//api/auth/login
-// 		return new Promise ((resolve, reject) => {
-// 			$.ajax({
-// 					method: 'POST',
-// 					url: '/api/users',
-// 					data: JSON.stringify(userData),
-// 					contentType: 'application/json; charset=utf-8',
-// 					dataType: 'text json',
-// 					success: function(data){ resolve(data); },
-// 					error: function(data){ reject(data.responseJSON); }
-// 				})
-// 			})
-// }
+		//api/auth/login
+		return new Promise ((resolve, reject) => {
+			$.ajax({
+					method: 'POST',
+					url: '/api/users',
+					data: JSON.stringify(userData),
+					contentType: 'application/json; charset=utf-8',
+					dataType: 'text json',
+					success: function(data){ 
+						resolve(data);
+						console.log(data);
+					 },
+					error: function(data){ 
+						reject(data.responseJSON); 
+						console.log(data);
+					}
+				}).done(function(data){
+					console.log(data);
+				})
+			})
+}
   
-// 	//handles the sign up
-// $('#sign-up-form-js').submit(function(event) {
-// 	event.preventDefault();
-// 	let username = $('#username-js-signup').val();
-// 	let password = $('#password-js-signup').val();
-// 	signUp(username, password);
-// });
+	//handles the sign up
+$('#sign-up-form-js').submit(function(event) {
+	event.preventDefault();
+	let username = $('#username-js-signup').val();
+	let password = $('#password-js-signup').val();
+	signUp(username, password);
+});
 
-// //handles the Log in
-// $('#login-form-js').submit(function(event) {
-// 	event.preventDefault();
-// 	let username = $('#username-js-login').val();
-// 	let password = $('#password-js-login').val();
-// 	logIn(username, password);
-// });
+//handles the Log in
+$('#login-form-js').submit(function(event) {
+	event.preventDefault();
+	let username = $('#username-js-login').val();
+	let password = $('#password-js-login').val();
+	logIn(username, password);
+});
 
-// function logIn(username, password) {
-// 	let userData = {
-// 		username: username,
-// 		password: password
-// 	};
-// 	return new Promise((resolve, reject) => {
-// 		$.ajax({
-// 			method: 'POST',
-// 			url: '/login',
-// 			data: JSON.stringify({username, password}),
-// 			contentType: 'application/json; charset=utf-8',
-// 			dataType: 'json',
-// 			success: function(data){ 
-// 				localStorage.setItem('authToken', data.authToken);
-// 				resolve();
-// 			},
-// 			error: function(data){ reject(data); }
-// 		});
-// 	});
-// }
+function logIn(username, password) {
+	let userData = {
+		username: username,
+		password: password
+	};
+	return new Promise((resolve, reject) => {
+		$.ajax({
+			method: 'POST',
+			url: '/login',
+			data: JSON.stringify({username, password}),
+			contentType: 'application/json; charset=utf-8',
+			dataType: 'json',
+			headers: {
+					"Authorization" : `Bearer ${state.token}`
+				},
+			success: function(data){ 
+				localStorage.setItem('authToken', data.authToken);
+				console.log(data.authToken);
+				resolve();
+			},
+			error: function(data){ reject(data); }
+		}).done(function(data){
+			console.log(data);
+		});
+	});
+}
 
 
 function getAndDisplay() {
@@ -90,7 +108,7 @@ function getUser() {
 function displayGoalsByUser(data) {
 	console.log('goal data', goalData);
 	console.log(data, 'hello');
-	let user = 'jane';
+
 
 	for(let i = 0; i < data.length; i++){
 		console.log(i);
@@ -100,10 +118,10 @@ function displayGoalsByUser(data) {
 				<div class='goal-container' val=${data[i]._id}>
 
 					<div class='goal-name'>
-						<h2>${data[i].goal}</h2>
-						<p class='last-updated' value=${data[i]._id}>Last update on ${new Date([data[i].updates[data[i].updates.length-1].date]).toLocaleDateString()}</p>
+						<h2>${data[i].goal}<p class='last-updated' value=${data[i]._id}> Last update on ${new Date([data[i].updates[data[i].updates.length-1].date]).toLocaleDateString()}</p></h2>
+						
 						<textarea class='submit-data form-control' value=${data[i]._id}>Tell us about your progress today!</textarea>
-						<button class='btn submit-update' value=${data[i]._id}>Submit</button>
+						<button class='btn submit-update' value=${data[i]._id}>Go!</button>
 						
 								<div class="panel-group update-class">
 								  <div class="panel panel-default">
@@ -153,7 +171,7 @@ function displayGoalsByUser(data) {
 				data[i].shortTermGoals.map( shortGoal =>$(`.short-goals${i}`).append(`<p>${shortGoal.shortGoal}</p>`));
 				data[i].updates.map( update =>{
 					console.log(update);
-					$(`.updates-list[val=${data[i]._id}]`).prepend(`<li class='updates-list-li list-group-item'>${update.update} <p>${new Date(update.date).toLocaleDateString()}</p></li>`)
+					$(`.updates-list[val=${data[i]._id}]`).prepend(`<li class='updates-list-li list-group-item'>${update.update} <cite><p class='updates-date'>-${new Date(update.date).toLocaleDateString()}</p></cite></li>`)
 				});
 				checkDate(data);
 				console.log(i);
@@ -166,10 +184,10 @@ function displayGoalsByUser(data) {
 				<div class='goal-container' val=${data[i]._id}>
 
 					<div class='goal-name'>
-						<h2>${data[i].goal}</h2>
-						<p class='last-updated' value=${data[i]._id}>No updates!</p>
+						<h2>${data[i].goal}<p class='last-updated' value=${data[i]._id}> No updates! Post an update!</p></h2>
+						
 						<textarea class='submit-data form-control' value=${data[i]._id}>Tell us about your progress today!</textarea>
-						<button class='btn submit-update' value=${data[i]._id}>Submit</button>
+						<button class='btn submit-update' value=${data[i]._id}>Go!</button>
 						
 								<div class="panel-group update-class">
 								  <div class="panel panel-default">
@@ -292,7 +310,7 @@ function submitData(updateIndex,submitDataInfo){
 		console.log('check here',data);
 		$(`.goal-container[val=${goalId}]`).css('border-left','20px solid #32CD32');
 		$(`.last-updated[value=${goalId}]`).html(`<p class='last=updated' value=${goalId}}>Last update on ${new Date([data.updates[data.updates.length-1].date]).toLocaleDateString()}</p>`)
-		$(`.updates-list[val=${goalId}]`).prepend(`<li class='updates-list-li list-group-item'>${data.updates[data.updates.length-1].update} <p>${new Date(data.updates[data.updates.length-1].date).toLocaleDateString()}</p></li>`)
+		$(`.updates-list[val=${goalId}]`).prepend(`<li class='updates-list-li list-group-item'>${data.updates[data.updates.length-1].update} <cite><p class='updates-date'>- ${new Date(data.updates[data.updates.length-1].date).toLocaleDateString()}</p></cite></li>`)
 	})
 
     	// let notZero = goalData[updateIndex].updates[goalData[updateIndex].updates.length].update;
@@ -346,7 +364,7 @@ $(document).on('click', '.new-goal-button', function(event) {
 		<div class='new-goal-container'>
 			<div class='new-long-term-goal-header'>
 				<h3>Enter in a New Long Term Goal</h3>
-				<textarea class='new-long-term-goal' rows="4" cols="50">Type Your Goal Here</textarea>
+				<textarea class='new-long-term-goal form-control' rows="4" cols="50">Type Your Goal Here</textarea>
 			</div>
 		
 			<button class='submit-new-goals'>Submit</button>
