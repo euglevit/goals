@@ -3,7 +3,7 @@ const express = require('express');
 const passport = require('passport');
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
-let LocalStrategy = require('passport-local').Strategy;
+// const LocalStrategy = require('passport-local').Strategy;
 
 const config = require('../config');
 const router = express.Router();
@@ -16,13 +16,15 @@ const createAuthToken = function(user) {
   });
 };
 
-const localAuth = passport.authenticate('local', {session: false});
-router.use(bodyParser.json());
+const localAuth = passport.authenticate('basic', {session: false});
+
 // The user provides a username and password to login
 router.post('/login', localAuth, (req, res) => {
+
   const authToken = createAuthToken(req.user.apiRepr());
   res.json({authToken});
-});
+
+})
 
 const jwtAuth = passport.authenticate('jwt', {session: false});
 

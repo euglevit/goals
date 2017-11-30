@@ -18,6 +18,7 @@ const {router: authRouter, basicStrategy, jwtStrategy} = require('./auth');
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(express.static('public'))
+passport.use(basicStrategy);
 // app.use(cors);
 
 app.use(function(req, res, next) {
@@ -31,22 +32,24 @@ app.use(function(req, res, next) {
 });
 
 app.use(passport.initialize());
-passport.use(basicStrategy);
+passport.use('local' , basicStrategy);
+
 passport.use(jwtStrategy);
 
 app.use('/api/users/', usersRouter);
 app.use('/api/auth/', authRouter);
-app.use('/api/login', usersRouter);
-app.use('/api/protected', usersRouter)
+
 
 mongoose.Promise = global.Promise;
 
+const jwtAuth = passport.authenticate('jwt', {session: false});
 
 
-
-app.get('/goals', (req, res) => {
+app.get('/goals', jwtAuth , (req, res) => {
+  console.log('user', req.user.username);
+  console.log(typeof req.user.username);
   GoalPost
-    .find()
+    .find({userId: req.user.username})
     .then(posts => {
       res.json(posts);
     })
@@ -84,7 +87,7 @@ app.get('/goals/:userId/', (req, res) => {
 });
 
 
-app.post('/goals', (req, res) => {
+app.post('/goals', jwtAuth, (req, res) => {
   const requiredFields = ['goal'];
   for (let i=0; i<requiredFields.length; i++) {
     const field = requiredFields[i];
@@ -98,7 +101,7 @@ app.post('/goals', (req, res) => {
   GoalPost
     .create({
       goal: req.body.goal,
-      userId: "jane",
+      userId: req.user.username,
       complete: false,
       shortTermGoals: [
 	],
@@ -140,7 +143,7 @@ app.post('/goals/:id/shortTermGoals', (req,res) => {
     });
 });
 
-app.post('/goals/:id/updates', (req,res) => {
+app.post('/goals/:id/updates', jwtAuth, (req,res) => {
 	const requiredFields = ['update'];
 	for (let i=0; i<requiredFields.length; i++) {
     const field = requiredFields[i];

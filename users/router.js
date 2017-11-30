@@ -17,14 +17,6 @@ router.post('/', (req, res) => {
   console.log(req.body);
 
 
-  User.create({
-    username: req.body.username,
-    password: req.body.password
-  }).then(user => {
-    res.status(201).json(user);
-  })
-
-
   const stringFields = ['username', 'password', 'firstName', 'lastName'];
   const nonStringField = stringFields.find(
     field => field in req.body && typeof req.body[field] !== 'string'
@@ -159,44 +151,55 @@ router.post('/', (req, res) => {
 //       return res.status(200).json(userExist)
 //   })
 // })
-router.get('/', (req, res) => {
-  return User.find()
-    .then(users => res.json(users.map(user => user.apiRepr())))
-    .catch(err => res.status(500).json({message: 'Internal server error'}));
-});
 
-router.post('/login', (req, res) => {
-  const user = [ { id: 3}];
-  const token = jwt.sign({user}, 'my_secret_key');
-  res.json({
-    token : token
-  });
-});
 
-router.get('/protected', ensureToken, (req,res) => {
-  console.log(req.token);
+// router.get('/login', (req, res) => {
+//   return User.find()
+//     .then(users => res.json(users.map(user => user.apiRepr())))
+//     .catch(err => res.status(500).json({message: 'Internal server error'}));
+// });
 
-  jwt.verify(req.token, 'my_secret_key', function(err,data) {
-    if (err) {
-      res.sendStatus(403);
-      console.log(req.token);
-    }
-    else {
-      res.json({
-        text : 'this is protected',
-        data : data
-      });
-    }
-  })
-  res.json({
-    text: 'this is protected'
-  });
-})
+// router.post('/login/:username', (req, res) => {
+//   console.log(req.params.username);
+  
+//   // const user = [ {username : req.username}];
+//   // // const user = [ { id: 3}];
+//   // const token = jwt.sign({user}, 'my_secret_key');
+  // return User
+  //   .find({username : req.body.username})
+  //   .then(data => {
+  //     const user = [ {username : data}];
+  //     const token = jwt.sign({user}, 'my_secret_key');
+  //     return token;
+  //   } )
+  //   .then( data => {
+  //     res.json({
+  //     token : data
+  //     })
+  //   }
+  //   )
+//   });
+
+// router.get('/protected', ensureToken, (req,res) => {
+//   console.log(ensureToken);
+
+//   jwt.verify(req.token, 'my_secret_key', function(err,data) {
+//     if (err) {
+//       res.sendStatus(403);
+//     }
+//     else {
+//       res.json({
+//         text : 'this is protected',
+//         data : data
+//       });
+//     }
+//   })
+// });
 
 function ensureToken(req, res, next){
   const bearerHeader = req.headers['authorization'];
   if(typeof bearerHeader !== 'undefined') {
-    const bearer = bearerHeader.split('');
+    const bearer = bearerHeader.split(' ');
     const bearerToken = bearer[1];
     req.token = bearerToken;
     next();
@@ -204,6 +207,11 @@ function ensureToken(req, res, next){
     res.sendStatus(403);
   }
 }
+router.get('/', (req, res) => {
+  return User.find()
+    .then(users => res.json(users.map(user => user.apiRepr())))
+    .catch(err => res.status(500).json({message: 'Internal server error'}));
+});
 // Never expose all your users like below in a prod application
 // we're just doing this so we have a quick way to see
 // if we're creating users. keep in mind, you can also

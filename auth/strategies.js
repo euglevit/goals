@@ -7,6 +7,7 @@ const {
     Strategy: JwtStrategy,
     ExtractJwt
 } = require('passport-jwt');
+const LocalStrategy = require('passport-local').Strategy
 
 const {User} = require('../users/models');
 const {JWT_SECRET} = require('../config');
@@ -27,6 +28,7 @@ const basicStrategy = new BasicStrategy((username, password, callback) => {
             return user.validatePassword(password);
         })
         .then(isValid => {
+            console.log(isValid);
             if (!isValid) {
                 return Promise.reject({
                     reason: 'LoginError',

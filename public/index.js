@@ -1,4 +1,12 @@
+
+
 $(document).ready(function() {
+	let state = {
+		loggedIn: false,
+		//Keeps track of the user's token (logged in/not logged in)
+		token:"",
+		goalsArray: []
+	}
 let goalData;
 
 //url: 'ewgnwiegun'
@@ -9,14 +17,17 @@ let goalData;
 
 let myGoals = [];
 function getGoals() {
+	const token = localStorage.getItem('authToken');
 	$.ajax({
 		type: 'GET',
-		url: 'http://localhost:8080/goals'
-		// headers: {
-		// 	"Authorization": `Bearer ${state.token}`
-		// }
+		url: 'http://localhost:8080/goals',
+		headers: {
+			"Authorization": `Bearer ${token}`
+		}
 	}).done(function(data){
 		goalData = data;
+
+		// console.log(data.user);
 		displayGoalsByUser(data);
 	})
 }
@@ -68,28 +79,37 @@ $('#login-form-js').submit(function(event) {
 });
 
 function logIn(username, password) {
+	
 	let userData = {
 		username: username,
 		password: password
 	};
+	console.log(JSON.stringify(userData));
 	return new Promise((resolve, reject) => {
 		$.ajax({
 			method: 'POST',
-			url: '/login',
-			data: JSON.stringify({username, password}),
+			url: `api/auth/login`,
+			data: JSON.stringify(userData),
 			contentType: 'application/json; charset=utf-8',
 			dataType: 'json',
-			headers: {
-					"Authorization" : `Bearer ${state.token}`
-				},
+			username: username,
+			password: password,
+			// headers: {
+			// 		"Authorization" : `Basic ${state.token}`
+			// 	},
 			success: function(data){ 
+				console.log('data', data);
 				localStorage.setItem('authToken', data.authToken);
-				console.log(data.authToken);
+				
+				
 				resolve();
 			},
-			error: function(data){ reject(data); }
+			error: function(data){ 
+				console.log('login error', data)
+				console.log(state);
+				reject(data); }
 		}).done(function(data){
-			console.log(data);
+			console.log("login error", data);
 		});
 	});
 }
@@ -99,20 +119,20 @@ function getAndDisplay() {
     getGoals(displayGoals);
 }
 
-function getUser() {
-	let user = 'jane';
-}
 
 
 
 function displayGoalsByUser(data) {
 	console.log('goal data', goalData);
 	console.log(data, 'hello');
+	// $('.username').replaceWith(`<li class=username>Hello ${data[i].userId}</li>`);
+	// $('.username').replaceWith(`<h2></h2>`);
 
 
 	for(let i = 0; i < data.length; i++){
 		console.log(i);
-		if(data[i].userId === user && data[i].updates[data[i].updates.length-1] !== undefined ){
+		if(data[i].userId !== undefined && data[i].updates[data[i].updates.length-1] !== undefined ){
+			
 			$('.secondary-container').prepend(
 				`
 				<div class='goal-container' val=${data[i]._id}>
@@ -250,24 +270,19 @@ function displayGoalsByUser(data) {
 $(document).on('click','.show-updates-button',function(event) {
 	event.preventDefault();
 	let goalId = $(this).attr('val');
-	showUpdatesFunction(goalId);
-
-	// for(let i=0;i<5;i++){
-	// 	$(`.updates-list[value=${goalData._id}]`).append(
-	// 		`
-	// 		<li>${goalData[_id=goalId.}
-	// 		`)
-	
+	showUpdatesFunction(goalId);	
 })
 
 function showUpdatesFunction(goalId){
+	const token = localStorage.getItem('authToken');
 	$.ajax({
 		type: 'GET',
-		url: `http://localhost:8080/goals/` 
+		url: `http://localhost:8080/goals/` ,
+		headers: {
+			"Authorization": `Bearer ${token}`
+		} 
 	}).done(function(data){
 		let dataIndex;
-		console.log(data);
-		console.log(goalId);
 		for(let i=0;i<data.length;i++){
 			if(data[i]._id === goalId){
 				dataIndex = i;
@@ -294,10 +309,14 @@ function submitData(updateIndex,submitDataInfo){
 		let goalId = updateIndex;
 		data2 = JSON.stringify({update : submitDataInfo});
 		console.log(data2);
+		const token = localStorage.getItem('authToken');
     	$.ajax({
         	type: `POST`,
         	url: `http://localhost:8080/goals/${goalId}/updates`,
-        	data: data2,
+					data: data2,
+					headers : {
+						"Authorization" : `Bearer ${token}`
+					},
         success: function(result) {
             console.log('update ok');
         },
@@ -383,7 +402,6 @@ function checkDate(goals) {
 	}
 	let inputDate = new Date("11/25/2017");
 	let todaysDate = new Date();
-	console.log(todaysDate);
 	todaysDate = todaysDate.setHours(0,0,0,0);
 	for(let i=0; i<goals.length;i++){
 		// let updateDate = data[i].updates[data[i].updates.length-1].date;
@@ -406,16 +424,6 @@ function checkDate(goals) {
 $(document).on('click','.submit-new-goals', function(event) {
 	event.preventDefault();
 	let longTermGoal = $('.new-long-term-goal').val();
-	let shortTermGoal1 = $('.new-short-term-goals1').val();
-	let shortTermGoal2 = $('.new-short-term-goals2').val();
-	let shortTermGoal3 = $('.new-short-term-goals3').val();
-	let newObject = {"userId" : "jane","goal": longTermGoal,
-		"date": new Date(),"complete": false,
-		"shortTermGoals": [], 
-		 "updates":[]};
-	// goals.push(newObject);
-	// $('.secondary-container').html('');
-	$('.new-goal').html('');
 	submitNewGoal(longTermGoal);
 
 		
@@ -427,10 +435,14 @@ $(document).on('click','.submit-new-goals', function(event) {
 //Submit new Goal FUNCTION
 function submitNewGoal(longTermGoal) {
 	let data2 = JSON.stringify({goal : longTermGoal});
+	const token = localStorage.getItem('authToken');
 	$.ajax({
         	type: `POST`,
         	url: `http://localhost:8080/goals/`,
-        	data: data2,
+					data: data2,
+					headers : {
+						"Authorization": `Bearer ${token}`
+					},
         success: function(result) {
             console.log('Submit new goal ok');
         },
@@ -450,10 +462,6 @@ function submitNewGoal(longTermGoal) {
 	
 }
 
-// { "shortGoal": shortTermGoal1, "date": Date.now(), "complete": "false" },
-// 			{ "shortGoal": shortTermGoal2, "date": Date.now(), "complete": "false" }, 
-// 			{  "shortGoal": shortTermGoal3, "date": Date.now(), "complete": "false" }
-
 function refreshUpdates() {}
 
 
@@ -462,24 +470,11 @@ function getAndDisplayUser() {
 	// getGoals(displayShortTermGoals);
 }
 
-function getData(){
-	// getGoals(submitData);
-}
 
-function newGoalData() {
-	// getGoals(newGoal);
-	// getGoals(submitNewGoals);
-}
-
-function addUpdate() {
-	 
-}
 
 $(function() {
     // getAndDisplay();
     getAndDisplayUser();
-    getData();
-    newGoalData();
 
 
 
