@@ -1,17 +1,9 @@
 
 
 $(document).ready(function() {
-	let state = {
-		loggedIn: false,
-		//Keeps track of the user's token (logged in/not logged in)
-		token:"",
-		goalsArray: []
-	}
-let goalData;
 
-//url: 'ewgnwiegun'
-// headers: { authorization: yourjwt }
-// method: 'POST'
+
+let goalData;
 
 
 
@@ -25,7 +17,9 @@ function getGoals() {
 			"Authorization": `Bearer ${token}`
 		}
 	}).done(function(data){
+		
 		goalData = data;
+		
 
 		// console.log(data.user);
 		displayGoalsByUser(data);
@@ -61,6 +55,11 @@ function signUp(username, password) {
 				})
 			})
 }
+
+$(document).on('click', '.sign-out', function(event) {
+	event.preventDefault();
+	$('.secondary-container').html('');
+})
   
 	//handles the sign up
 $('#sign-up-form-js').submit(function(event) {
@@ -100,20 +99,19 @@ function logIn(username, password) {
 			success: function(data){ 
 				console.log('data', data);
 				localStorage.setItem('authToken', data.authToken);
-				
-				
 				resolve();
 			},
 			error: function(data){ 
 				console.log('login error', data)
 				console.log(state);
-				reject(data); }
-		}).done(function(data){
+				reject(data); 
+		}}).done(function(data){
 			console.log("login error", data);
-		});
+			$('.username').replaceWith(`<li class=username>Hello ${username}</li>`);
+			getGoals(displayGoalsByUser);
+		})
 	});
 }
-
 
 function getAndDisplay() {
     getGoals(displayGoals);
@@ -125,7 +123,6 @@ function getAndDisplay() {
 function displayGoalsByUser(data) {
 	console.log('goal data', goalData);
 	console.log(data, 'hello');
-	// $('.username').replaceWith(`<li class=username>Hello ${data[i].userId}</li>`);
 	// $('.username').replaceWith(`<h2></h2>`);
 
 
@@ -377,18 +374,26 @@ function deleteGoal(deleteIndex){
 //New Goal ON CLICK
 $(document).on('click', '.new-goal-button', function(event) {
 	event.preventDefault();
-	$('.new-goal').show();
-	$('.new-goal').prepend(
-		`
-		<div class='new-goal-container'>
-			<div class='new-long-term-goal-header'>
-				<h3>Enter in a New Long Term Goal</h3>
-				<textarea class='new-long-term-goal form-control' rows="4" cols="50">Type Your Goal Here</textarea>
+	// $('.new-goal').show();
+	
+	if($('.new-goal').attr('val') === 'false'){
+		$('.new-goal').prepend(
+			`
+			<div class='new-goal-container'>
+				<div class='new-long-term-goal-header'>
+					<h3>Enter in a New Long Term Goal</h3>
+					<textarea class='new-long-term-goal form-control' rows="4" cols="50">Type Your Goal Here</textarea>
+				</div>
+			
+				<button class='submit-new-goals'>Submit</button>
 			</div>
-		
-			<button class='submit-new-goals'>Submit</button>
-		</div>
-		`)
+			`)
+			$('.new-goal').attr('val','true');
+	}else{
+		$('.new-goal').attr('val','false');
+		$('.new-goal').html('');
+	}
+
 })
 
 
@@ -424,6 +429,8 @@ function checkDate(goals) {
 $(document).on('click','.submit-new-goals', function(event) {
 	event.preventDefault();
 	let longTermGoal = $('.new-long-term-goal').val();
+	$('.new-goal').html('');
+	$('.new-goal').attr('val','false');
 	submitNewGoal(longTermGoal);
 
 		
@@ -466,7 +473,8 @@ function refreshUpdates() {}
 
 
 function getAndDisplayUser() {
-	getGoals(displayGoalsByUser);
+
+	// getGoals(displayGoalsByUser);
 	// getGoals(displayShortTermGoals);
 }
 
@@ -474,7 +482,7 @@ function getAndDisplayUser() {
 
 $(function() {
     // getAndDisplay();
-    getAndDisplayUser();
+    // getAndDisplayUser();
 
 
 

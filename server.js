@@ -47,7 +47,6 @@ const jwtAuth = passport.authenticate('jwt', {session: false});
 
 app.get('/goals', jwtAuth , (req, res) => {
   console.log('user', req.user.username);
-  console.log(typeof req.user.username);
   GoalPost
     .find({userId: req.user.username})
     .then(posts => {
