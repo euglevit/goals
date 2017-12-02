@@ -1,7 +1,5 @@
 body{background-image: url('https://www.planwallpaper.com/static/images/twe_background-1920x1080.jpg');/* background-color: yellow; */}
-h1{
-
-}
+h1{}
 .main-container {
 	margin-bottom: 0px;
 }
@@ -15,14 +13,35 @@ h1{
 .updates{
 
 }
+.log-in-button{
+	padding: 5px;
+	border: none;
+	background: #2dbe60;
+	color: white;
+	width: 70px;
+}
+.log-in-button:hover{
+	background: #0d9f40;
+
+}
+.navbar h1{
+	display: inline-block;
+	color: white;
+	margin-left: 20px;
+	margin-top: 18px;
+	margin-right: 10px;
+}
 .appname{
 	font-size: 30px;
 	color: white;
-	left: 26%;
+	/* margin-left: 26%; */
 	overflow: none;
+	vertical-align: middle;
+	line-height: 68px;
+	padding-right: 30px;
 }
 .secondary-container{
-	margin-bottom: 25px;
+	/* margin-bottom: 25px; */
 }
 .new-goal-button {font-size: 1.6em;color: white;}
 .new-goal-button:hover{
@@ -48,12 +67,18 @@ h1{
 	max-width: 585px;
 }
 .username{
-	font-size: 30px;
-	margin-left: 5%;
+	font-size: 18px;
+	/* margin-left: 5%; */
 	color: white;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 68px;
+	margin-right: 14px;
 }
 .goal-button{
-	margin-left: 54%;
+	vertical-align: middle;
+	line-height: 68px;
+	font-size: 10px;
 }
 .footer {
 	position: fixed;
@@ -62,6 +87,7 @@ h1{
 	height: 40px;
 	bottom: 0px;
 	clear: both;
+	margin: 0px;
 }
 .update-class{display: none;}
 
@@ -116,8 +142,8 @@ h1{
     margin-top: 20px;
     width: 80px;
 }
-.navbar{display: block;height: 40px;background-color: #4267b2;top: 0px;margin-top: 0px;}
-.nav{display: inline;white-space: nowrap;margin-left: auto;margin-right: auto;width: 90%;position: relative;display: block;}
+.navbar{display: block;height: 74px;background-color: #4267b2;top: 0px;margin-top: 0px;}
+.nav{/* display: inline; */white-space: nowrap;margin-left: auto;margin-right: auto;width: 90%;position: relative;display: block;height: 74px;text-overflow: ellipsis;}
 .nav li{
 	display: inline;
 }
@@ -129,14 +155,29 @@ h1{
 	position: absolute;
 	/* background: no-repeat; */
 }
+.navright{
+	float: right;
+}
 .updates-date{
 	text-align: right;
 	font-size: 12px;
+}
+.logged-in-nav{
+	height: 74px;
 }
 .footer p{
 	left: 29px;
 	top: 10px;
 	position: relative;
+}
+.submit-new-goals{
+	margin: auto;
+	display: block;
+	margin-top: 20px;
+	width: 80px;
+	padding: 7px;
+	background-color: white;
+	border: 1px solid black;
 }
 .updates-list-li{
 	font-size: 17px;
@@ -156,23 +197,69 @@ h2 {
 .view-updates{
 
 }
-.start-page {
-	padding: 45px;
+.login-form{/* float: right; */margin-top: 26px;margin-right: 27px;display: inline-block;position: absolute;right: 5px;}
+.login-username{border: none;padding: 5px;border-radius: 4px;background: white;}
+.login-password{
+	border: none;
+	padding: 5px;
+	border-radius: 4px;
+	background: white;
 }
-.left-start{color: white;width: 50%;box-sizing: border-box;border-right: 1px solid;margin-right: 0%;float: left;}
-.right-start{float: right;width: 50%;color: white;text-align: center;}
+.start-page {
+	/* padding: 45px; */
+	/* width: 900px; */
+	margin: auto;
+	margin-bottom: 300px;
+}
+.left-start{color: white;width: 400px;box-sizing: border-box;border-right: 1px solid;/* margin-right: 0%; *//* float: left; */display: inline-block;}
+.right-start{float: right;width: 400px;color: white;text-align: center;border-left: 41px solid transparent;box-sizing: border-box;display: inline-block;}
 .left-start h1{font-size: 50px;line-height: 60px;}
 .left-start p{font-size: 14px;line-height: 22px;}
 .right-start p{
 	
 }
 .right-start h1{margin-left: auto;margin-right: auto;width: 55%;}
+.right-start h2{
+	margin-left: auto;
+	display: inline-block;
+	margin-top: 50px;
+	margin-right: auto;
+}
+.start-content{
+	width: 800px;
+	display: block;
+	margin: auto;
+}
 .username-form{
-	
+	/* display: block; */
+	background: white;
+	border: 1px solid #eef2f3;
+	border-radius: 4px;
+	padding: 16px 12px 15px;
+	width: 350px;
+	margin-top: -10px;
+	color: black;
 }
 .password-form{
-	
+	margin-top: 10px;
+	background: white;
+	border: 1px solid #eef2f3;
+	border-radius: 4px;
+	padding: 16px 12px 15px;
+	width: 350px;
+	color: black;
 }
+.sign-out{
+	color: white;
+	text-decoration: none;
+	margin-left: 8px;
+}
+.sign-out:hover{
+	color: white;
+	text-decoration: none;
+}
+.sign-up-button{text-align: center;color: #fff;background-color: #2dbe60;border: 0;border-radius: 4px;padding: 18px 20px 17px;width: 350px;margin-top: 22px;}
+.sign-up-button:hover{background-color: #0d9f40;}
 .last-updated{/* text-align: right; */display: inline;font-size: 14px;float: right;position: relative;top: 10px;margin-right: 10px;}
 .loginBtn {
   box-sizing: border-box;
@@ -226,14 +313,64 @@ h2 {
 	.goal-container {
 		min-height: 200px;
 	}
+	.username-form{
+
+	}
+	.password-form{
+
+	}
+
 }
 
-@media all and (max-width: 655px) {
+@media all and (max-width: 900px) {
+	.left-start{
+		width: 500px;
+		border: none;
+		padding: 10px;
+		float: none;
+		height: 335px;
+		display: block;
+		text-align: center;
+		margin: auto;
+	}
+	.right-start{
+		width: 500px;
+		border: none;
+		padding: 10px;
+		float: none;
+		height: 335px;
+		display: block;
+		margin: auto;
+		border: none;
+	}
+	.start-content{
+		width: 500px;
+		margin-bottom: 33px;
+	}
+
+}
+@media all and (max-width: 815px) {
+	.start-page{
+		/* padding: 35px; */
+		margin-bottom: 422px;
+	}
+}
+
+
+@media all and (max-width: 665px) {
 	.delete-button {left: 68%;}
 	.show-updates-button{
 	left: 66%;
 	}
-
+	.left-start{
+		width: 400px;
+		height: 350px;
+	}
+	.right-start{
+		width: 400px;
+		height: 350px;
+	}
+	
 
 }
 
@@ -241,10 +378,17 @@ h2 {
 	.delete-button {left: 65%;}
 	.show-updates-button{left: 63%;}
 	.goal-button{
-		margin-left: 47%;
 	}
 	.appname{
-		left: 22%;
+		/* left: 22%; */
+	}
+	.left-start{
+		/* width: 370px; */
+		height: 390px;
+	}
+	.right-start{
+		width: 370px;
+		height: 390px;
 	}
 }
 
@@ -253,10 +397,16 @@ h2 {
 		font-size: 0px;
 	}
 	.goal-button{
-		margin-left: 39%;
 	}
 	.appname{
-		left: 18%;
+		/* left: 18%; */
+	}
+	.left-start{
+		/* width: 330px; */
+	}
+	.right-start{
+		width: 330px;
+		margin-bottom: 30px;
 	}
 	
 }

@@ -1,0 +1,243 @@
+{ 
+    "_id" : ObjectId("5a1f7ab3a04ccc175fba3ca1"), 
+    "goal" : "mwahaha", 
+    "userId" : "eugene1162", 
+    "complete" : false, 
+    "updates" : [
+
+    ], 
+    "shortTermGoals" : [
+
+    ], 
+    "date" : ISODate("2017-11-30T03:27:34.581+0000"), 
+    "__v" : NumberInt(0)
+},
+{ 
+    "_id" : ObjectId("5a1f7df2e1272f186f5e066f"), 
+    "goal" : "Type Your Goal Here", 
+    "userId" : "eugene1162", 
+    "complete" : false, 
+    "updates" : [
+        {
+            "update" : "Tell us about your progress today!", 
+            "_id" : ObjectId("5a1f80ffb6603619148934d0"), 
+            "date" : ISODate("2017-11-30T03:54:22.706+0000")
+        }, 
+        {
+            "update" : "Suchh great progress", 
+            "_id" : ObjectId("5a1f810eb6603619148934d1"), 
+            "date" : ISODate("2017-11-30T03:54:22.706+0000")
+        }, 
+        {
+            "update" : "I have so many goals", 
+            "_id" : ObjectId("5a201707aa13f51fdda01307"), 
+            "date" : ISODate("2017-11-30T14:33:31.702+0000")
+        }
+    ], 
+    "shortTermGoals" : [
+
+    ], 
+    "date" : ISODate("2017-11-30T03:41:27.962+0000"), 
+    "__v" : NumberInt(3)
+},
+{ 
+    "_id" : ObjectId("5a2016d5aa13f51fdda01305"), 
+    "goal" : "Learn javascript", 
+    "userId" : "eugene1162", 
+    "complete" : false, 
+    "updates" : [
+        {
+            "update" : "Today i uploaded to Git", 
+            "_id" : ObjectId("5a2016e2aa13f51fdda01306"), 
+            "date" : ISODate("2017-11-30T14:33:31.702+0000")
+        }
+    ], 
+    "shortTermGoals" : [
+
+    ], 
+    "date" : ISODate("2017-11-30T14:33:31.703+0000"), 
+    "__v" : NumberInt(1)
+},
+{ 
+    "_id" : ObjectId("5a20193a02e51e202a30ba2c"), 
+    "goal" : "brr", 
+    "userId" : "eugene1163", 
+    "complete" : false, 
+    "updates" : [
+        {
+            "update" : "updatesssss", 
+            "_id" : ObjectId("5a215e1452c9e622350e79ec"), 
+            "date" : ISODate("2017-11-30T17:00:18.474+0000")
+        }
+    ], 
+    "shortTermGoals" : [
+
+    ], 
+    "date" : ISODate("2017-11-30T14:42:23.160+0000"), 
+    "__v" : NumberInt(1)
+},
+{ 
+    "_id" : ObjectId("5a20397a52c9e622350e79e8"), 
+    "goal" : "yea yea yea yea", 
+    "userId" : "eugene1162", 
+    "complete" : false, 
+    "updates" : [
+        {
+            "update" : "woohooooooo", 
+            "_id" : ObjectId("5a20398052c9e622350e79e9"), 
+            "date" : ISODate("2017-11-30T17:00:18.474+0000")
+        }, 
+        {
+            "update" : "gotta let it burnnnnnn", 
+            "_id" : ObjectId("5a20398f52c9e622350e79ea"), 
+            "date" : ISODate("2017-11-30T17:00:18.474+0000")
+        }
+    ], 
+    "shortTermGoals" : [
+
+    ], 
+    "date" : ISODate("2017-11-30T17:00:18.475+0000"), 
+    "__v" : NumberInt(2)
+},
+{ 
+    "_id" : ObjectId("5a215e0a52c9e622350e79eb"), 
+    "goal" : "I have a new long term goal", 
+    "userId" : "eugene1163", 
+    "complete" : false, 
+    "updates" : [
+
+    ], 
+    "shortTermGoals" : [
+
+    ], 
+    "date" : ISODate("2017-11-30T17:00:18.475+0000"), 
+    "__v" : NumberInt(0)
+},
+{ 
+    "_id" : ObjectId("5a215e2752c9e622350e79ed"), 
+    "goal" : "I have a new long term goal", 
+    "userId" : "eugene1163", 
+    "complete" : false, 
+    "updates" : [
+
+    ], 
+    "shortTermGoals" : [
+
+    ], 
+    "date" : ISODate("2017-11-30T17:00:18.475+0000"), 
+    "__v" : NumberInt(0)
+},
+{ 
+    "_id" : ObjectId("5a215eb62a54c626e8cc305f"), 
+    "goal" : "dundundun", 
+    "userId" : "eugene1163", 
+    "complete" : false, 
+    "updates" : [
+        {
+            "update" : "Tell us about your progress today!", 
+            "_id" : ObjectId("5a22a6178e4e9b3bd7579482"), 
+            "date" : ISODate("2017-12-02T13:09:18.460+0000")
+        }
+    ], 
+    "shortTermGoals" : [
+
+    ], 
+    "date" : ISODate("2017-12-01T13:52:17.602+0000"), 
+    "__v" : NumberInt(1)
+},
+{ 
+    "_id" : ObjectId("5a2162aee3256b27bc2cac60"), 
+    "goal" : "Type Your Goal Here", 
+    "userId" : "eugene1163", 
+    "complete" : false, 
+    "updates" : [
+        {
+            "update" : "Tell us about your progress today!", 
+            "_id" : ObjectId("5a21f5b840719738a58b1900"), 
+            "date" : ISODate("2017-12-02T00:36:47.557+0000")
+        }
+    ], 
+    "shortTermGoals" : [
+
+    ], 
+    "date" : ISODate("2017-12-01T14:09:28.391+0000"), 
+    "__v" : NumberInt(1)
+},
+{ 
+    "_id" : ObjectId("5a22ae3ebe62c33d18e31c77"), 
+    "goal" : "My First Long Term Goal", 
+    "userId" : "user1234", 
+    "complete" : false, 
+    "updates" : [
+        {
+            "update" : "How Can I help you today", 
+            "_id" : ObjectId("5a22ae4ebe62c33d18e31c78"), 
+            "date" : ISODate("2017-12-02T13:43:48.240+0000")
+        }, 
+        {
+            "update" : "How Can I help you today 2", 
+            "_id" : ObjectId("5a22ae53be62c33d18e31c79"), 
+            "date" : ISODate("2017-12-02T13:43:48.240+0000")
+        }
+    ], 
+    "shortTermGoals" : [
+
+    ], 
+    "date" : ISODate("2017-12-02T13:43:48.241+0000"), 
+    "__v" : NumberInt(2)
+},
+{ 
+    "_id" : ObjectId("5a22af23ffb0e63d43e9e0be"), 
+    "goal" : "Entering in a new long term goal", 
+    "userId" : "user12345", 
+    "complete" : false, 
+    "updates" : [
+        {
+            "update" : "Tell us about your progress today!", 
+            "_id" : ObjectId("5a22b090ffb0e63d43e9e0bf"), 
+            "date" : ISODate("2017-12-02T13:47:39.830+0000")
+        }, 
+        {
+            "update" : "How many updates do I have", 
+            "_id" : ObjectId("5a22b09dffb0e63d43e9e0c0"), 
+            "date" : ISODate("2017-12-02T13:47:39.830+0000")
+        }
+    ], 
+    "shortTermGoals" : [
+
+    ], 
+    "date" : ISODate("2017-12-02T13:47:39.831+0000"), 
+    "__v" : NumberInt(2)
+},
+{ 
+    "_id" : ObjectId("5a22b240ffb0e63d43e9e0c1"), 
+    "goal" : "New Goal", 
+    "userId" : "user12345", 
+    "complete" : false, 
+    "updates" : [
+        {
+            "update" : "Updates", 
+            "_id" : ObjectId("5a22b247ffb0e63d43e9e0c2"), 
+            "date" : ISODate("2017-12-02T13:47:39.830+0000")
+        }
+    ], 
+    "shortTermGoals" : [
+
+    ], 
+    "date" : ISODate("2017-12-02T13:47:39.831+0000"), 
+    "__v" : NumberInt(1)
+},
+{ 
+    "_id" : ObjectId("5a22b280ffb0e63d43e9e0c4"), 
+    "goal" : "New Goal", 
+    "userId" : "user123456", 
+    "complete" : false, 
+    "updates" : [
+
+    ], 
+    "shortTermGoals" : [
+
+    ], 
+    "date" : ISODate("2017-12-02T13:47:39.831+0000"), 
+    "__v" : NumberInt(0)
+}

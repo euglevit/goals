@@ -52,12 +52,49 @@ function signUp(username, password) {
 					}
 				}).done(function(data){
 					console.log(data);
+					logIn(username,password);
+					$('.new-goal').prepend(
+						`
+						<div class='new-goal-container'>
+							<div class='new-long-term-goal-header'>
+								<h3>Enter in a New Long Term Goal</h3>
+								<textarea class='new-long-term-goal form-control' rows="4" cols="50">Type Your Goal Here</textarea>
+							</div>
+						
+							<button class='submit-new-goals'>Submit</button>
+						</div>
+						`)
+						$('.new-goal').attr('val','true');
 				})
 			})
 }
 
 $(document).on('click', '.sign-out', function(event) {
 	event.preventDefault();
+	$('.logged-in-nav').css('display','none');
+	$('.startup-nav').css('display','');
+	$('.start-page').css('display','');
+	$('.start-page').append(
+		`
+		<div class='start-content'> 
+		<div class='left-start'>
+			<h1>Meet HitGoal, the surefire way to make your dreams come true</h1>
+			<p>Create long term goals and post updates everyday. Our easy design will make you want to update as often as possible.</p>
+		</div>
+		<div class='right-start'>
+			<h1>Sign Up For Free!</h1>
+			<button class="loginBtn loginBtn--facebook">Sign Up With Facebook</button>
+		</br>
+			<h2>Or</h2>
+			<form id="sign-up-form-js">
+				<input id="username-js-signup" class="username-form user-info" type="text" autocomplete="off" name="username" placeholder="Username">
+				<input id="password-js-signup" class="password-form user-info password-js" type="password" autocomplete="off" name="password" placeholder="Password"> </br>			
+				<button class="sign-up-button button">Sign Up</button>
+			</form>
+		</div>
+	</div>
+		`
+	)
 	$('.secondary-container').html('');
 })
   
@@ -108,6 +145,10 @@ function logIn(username, password) {
 		}}).done(function(data){
 			console.log("login error", data);
 			$('.username').replaceWith(`<li class=username>Hello ${username}</li>`);
+			$('.logged-in-nav').css('display','');
+			$('.startup-nav').css('display','none');
+			$('.start-page').html('');
+			$('.start-page').css('display','none');
 			getGoals(displayGoalsByUser);
 		})
 	});
@@ -294,7 +335,6 @@ function showUpdatesFunction(goalId){
 $(document).on('click','.submit-update', function(event) {
 	event.preventDefault();
 	let updateIndex = $(this)[0].value;
-	
 	let submitDataInfo = $(`.submit-data[value=${updateIndex}]`).val();
 	submitData(updateIndex, submitDataInfo);
 })

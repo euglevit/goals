@@ -7,37 +7,49 @@
 </head>
 <body>
 	<div class='navbar'>
-		<ul class='nav'>
-			<li class='username'></li>
-			<li class='appname'>Go Goals</li>
-			<li class='goal-button'><span class="new-goal-button glyphicon glyphicon-plus"></span></li>
-		</ul>
-		<a class='sign-out' href=''>Sign-Out</a>
+		<div class='startup-nav'>
+			<h1>HitGoal</h1>
+			<form class='login-form' id="login-form-js">
+				<input id="username-js-login" class="login-username user-info" type="text" autocomplete="off" name="username" placeholder="Username">
+				<input id="password-js-login" class="login-password user-info" type="password" autocomplete="off" name="password" placeholder="Password">
+				<button class="log-in-button button">Log In</button>
+			</form>
+		</div>
+		<div class='logged-in-nav' style='display:none;'>
+				<ul class='nav'>
+					<li class='appname'>Go Goals</li>
+					<div class='navright'>
+						<li class='username'></li>
+						<li class='goal-button'><span class="new-goal-button glyphicon glyphicon-plus"></span></li>
+						<li><a class='sign-out' href=''>Sign-Out</a></li>
+					</div>
+				</ul>
+		</div>
+		
 	</div>
 
 	
-		<form id="login-form-js">
-			<input id="username-js-login" class="user-info" type="text" autocomplete="off" name="username" placeholder="Username">
-			<input id="password-js-login" class="user-info" type="password" autocomplete="off" name="password" placeholder="Password">
-			<button class="log-in-button button">Log In</button>
-		</form>
+
 	<!-- <div class='leftbar'>
 	</div> -->
 
 	<div class='start-page'>
-		<div class='left-start'>
-			<h1>Meet HitGoal, the surefire way to make your dreams come true</h1>
-			<p>Create long term goals and post updates everyday. Our easy design will make you want to update as often as possible.</p>
-		</div>
-		<div class='right-start'>
-			<h1>Sign Up For Free!</h1>
-			<button class="loginBtn loginBtn--facebook">Sign Up With Facebook</button>
-			<form id="sign-up-form-js">
-				<input id="username-js-signup" class="username-form user-info" type="text" autocomplete="off" name="username" placeholder="Username"></br>
-				<input id="password-js-signup" class="password-form user-info password-js" type="password" autocomplete="off" name="password" placeholder="Password">			
-				<button class="sign-up-button button">Sign Up</button>
-			</form>
-
+		<div class='start-content'> 
+			<div class='left-start'>
+				<h1>Meet HitGoal, the surefire way to make your dreams come true</h1>
+				<p>Create long term goals and post updates everyday. Our easy design will make you want to update as often as possible.</p>
+			</div>
+			<div class='right-start'>
+				<h1>Sign Up For Free!</h1>
+				<button class="loginBtn loginBtn--facebook">Sign Up With Facebook</button>
+			</br>
+				<h2>Or</h2>
+				<form id="sign-up-form-js">
+					<input id="username-js-signup" class="username-form user-info" type="text" autocomplete="off" name="username" placeholder="Username">
+					<input id="password-js-signup" class="password-form user-info password-js" type="password" autocomplete="off" name="password" placeholder="Password"> </br>			
+					<button class="sign-up-button button">Sign Up</button>
+				</form>
+			</div>
 		</div>
 	</div>
 
