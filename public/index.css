@@ -41,7 +41,7 @@ h1{}
 	padding-right: 30px;
 }
 .secondary-container{
-	/* margin-bottom: 25px; */
+	margin-bottom: 100px;
 }
 .new-goal-button {font-size: 1.6em;color: white;}
 .new-goal-button:hover{
@@ -144,9 +144,7 @@ h1{}
 }
 .navbar{display: block;height: 74px;background-color: #4267b2;top: 0px;margin-top: 0px;}
 .nav{/* display: inline; */white-space: nowrap;margin-left: auto;margin-right: auto;width: 90%;position: relative;display: block;height: 74px;text-overflow: ellipsis;}
-.nav li{
-	display: inline;
-}
+.nav li{display: inline;}
 .leftbar{
 	min-height: 106%;
 	width: 4%;
@@ -197,7 +195,7 @@ h2 {
 .view-updates{
 
 }
-.login-form{/* float: right; */margin-top: 26px;margin-right: 27px;display: inline-block;position: absolute;right: 5px;}
+.login-form{/* float: right; */margin-top: 26px;margin-right: 27px;display: inline-block;position: absolute;right: -10px;min-width: 390px;}
 .login-username{border: none;padding: 5px;border-radius: 4px;background: white;}
 .login-password{
 	border: none;
@@ -309,18 +307,6 @@ h2 {
   background-image: linear-gradient(#5B7BD5, #4864B1);
 }
 
-@media only screen and (min-device-width : 375px) and (max-width: 667px) {
-	.goal-container {
-		min-height: 200px;
-	}
-	.username-form{
-
-	}
-	.password-form{
-
-	}
-
-}
 
 @media all and (max-width: 900px) {
 	.left-start{
@@ -344,7 +330,7 @@ h2 {
 		border: none;
 	}
 	.start-content{
-		width: 500px;
+		/* width: 500px; */
 		margin-bottom: 33px;
 	}
 
@@ -383,7 +369,7 @@ h2 {
 		/* left: 22%; */
 	}
 	.left-start{
-		/* width: 370px; */
+		width: 370px;
 		height: 390px;
 	}
 	.right-start{
@@ -402,7 +388,7 @@ h2 {
 		/* left: 18%; */
 	}
 	.left-start{
-		/* width: 330px; */
+		width: 330px;
 	}
 	.right-start{
 		width: 330px;
@@ -410,7 +396,85 @@ h2 {
 	}
 	
 }
+@media only screen 
+and (min-device-width: 375px) 
+and (max-device-width: 667px) 
+and (-webkit-min-device-pixel-ratio: 2) {
+	.goal-container {
+		min-height: 200px;
+	}
+	.username-form{
 
+	}
+	.password-form{
+
+	}
+	.start-content{
+		width: 375px;
+	}
+	.left-start{
+		width: 375px;
+		border: none;
+		float: none;
+		height: 335px;
+		display: block;
+		text-align: center;
+		margin: auto;
+	}
+	.right-start{
+		width: 375px;
+		border: none;
+		padding: 10px;
+		float: none;
+		height: 335px;
+		display: block;
+		margin: auto;
+		border: none;
+		margin-top: 76px;
+	}
+	.start-content{
+		/* width: 500px; */
+		margin-bottom: 33px;
+	}
+	.startup-nav h1{
+		display: none;
+	}
+	.login-form{
+		min-width: 375px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.login-username{
+	/* padding-left: 0px; */
+	/* padding-right: 0px; */
+	width: 133px;
+	}
+	.login-password{
+	width: 133px;
+	}
+	.appname{
+		font-size: 0px;
+		width: 0px;
+		height: 0px;
+		padding: 0px;
+	}
+	.nav{
+		width: 100%;
+	}
+	.navright{
+		margin: auto;
+		width: 373px;
+		text-align: center;
+	}
+	.username{text-align: left;position: absolute;left: 10px;}
+	.goal-button{position: absolute;left: 190px;top: 2px;}
+	.sign-out{
+		position: absolute;
+		right: 22px;
+		top: 23px;
+	}
+
+}
 
 
 

@@ -103,7 +103,11 @@ $('#sign-up-form-js').submit(function(event) {
 	event.preventDefault();
 	let username = $('#username-js-signup').val();
 	let password = $('#password-js-signup').val();
-	signUp(username, password);
+	if(username === "" || password === ""){
+		alert("Username and Password required.");
+	}else{
+		signUp(username, password);
+	}
 });
 
 //handles the Log in
@@ -111,7 +115,11 @@ $('#login-form-js').submit(function(event) {
 	event.preventDefault();
 	let username = $('#username-js-login').val();
 	let password = $('#password-js-login').val();
-	logIn(username, password);
+	if(username === "" || password === ""){
+		alert("Username and Password required.");
+	}else{
+		logIn(username, password);
+	};
 });
 
 function logIn(username, password) {
@@ -145,6 +153,8 @@ function logIn(username, password) {
 		}}).done(function(data){
 			console.log("login error", data);
 			$('.username').replaceWith(`<li class=username>Hello ${username}</li>`);
+			$('.login-username').val('');
+			$('.login-password').val('');
 			$('.logged-in-nav').css('display','');
 			$('.startup-nav').css('display','none');
 			$('.start-page').html('');
