@@ -315,7 +315,7 @@ function showUpdatesFunction(goalId){
 	const token = localStorage.getItem('authToken');
 	$.ajax({
 		type: 'GET',
-		url: `http://localhost:8080/goals/` ,
+		url: `/goals/` ,
 		headers: {
 			"Authorization": `Bearer ${token}`
 		} 
@@ -349,7 +349,7 @@ function submitData(updateIndex,submitDataInfo){
 		const token = localStorage.getItem('authToken');
     	$.ajax({
         	type: `POST`,
-        	url: `http://localhost:8080/goals/${goalId}/updates`,
+        	url: `/goals/${goalId}/updates`,
 					data: data2,
 					headers : {
 						"Authorization" : `Bearer ${token}`
