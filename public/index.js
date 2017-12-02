@@ -12,7 +12,7 @@ function getGoals() {
 	const token = localStorage.getItem('authToken');
 	$.ajax({
 		type: 'GET',
-		url: 'http://localhost:8080/goals',
+		url: '/goals',
 		headers: {
 			"Authorization": `Bearer ${token}`
 		}
@@ -387,7 +387,7 @@ function deleteGoal(deleteIndex){
 	console.log(goalId);
 	$.ajax({
         	type: `DELETE`,
-        	url: `http://localhost:8080/goals/${goalId}`,
+        	url: `/goals/${goalId}`,
         	// data: data2,
         success: function(result) {
             console.log('delete ok');
@@ -485,7 +485,7 @@ function submitNewGoal(longTermGoal) {
 	const token = localStorage.getItem('authToken');
 	$.ajax({
         	type: `POST`,
-        	url: `http://localhost:8080/goals/`,
+        	url: `/goals/`,
 					data: data2,
 					headers : {
 						"Authorization": `Bearer ${token}`
