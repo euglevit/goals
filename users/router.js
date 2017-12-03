@@ -2,10 +2,23 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
+const passport = require('passport');
+const config = require('../config');
 
 const {User} = require('./models');
 
 const router = express.Router();
+const createAuthToken = user => {
+  console.log('create', user);
+  return jwt.sign({user}, config.JWT_SECRET, {
+      subject: user.username,
+      expiresIn: config.JWT_EXPIRY,
+      algorithm: 'HS256'
+  });
+  console.log('return complete');
+};
+
+
 
 // const jsonParser = bodyParser.json();
 
@@ -117,7 +130,12 @@ router.post('/', (req, res) => {
       });
     })
     .then(user => {
-      return res.status(201).json(user.apiRepr());
+      let apiRepr = user.apiRepr()
+      const authToken = createAuthToken(apiRepr);
+      res.json(Object.assign({}, {authToken}, apiRepr));
+  
+      // return res.status(201).json(user.apiRepr());
+      
     })
     .catch(err => {
       // Forward validation errors on to the client, otherwise give a 500
@@ -196,17 +214,6 @@ router.post('/', (req, res) => {
 //   })
 // });
 
-function ensureToken(req, res, next){
-  const bearerHeader = req.headers['authorization'];
-  if(typeof bearerHeader !== 'undefined') {
-    const bearer = bearerHeader.split(' ');
-    const bearerToken = bearer[1];
-    req.token = bearerToken;
-    next();
-  }else {
-    res.sendStatus(403);
-  }
-}
 router.get('/', (req, res) => {
   return User.find()
     .then(users => res.json(users.map(user => user.apiRepr())))

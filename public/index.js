@@ -4,6 +4,8 @@ $(document).ready(function() {
 
 
 let goalData;
+let minUsername = 1;
+let minPassword = 8;
 
 
 
@@ -44,11 +46,9 @@ function signUp(username, password) {
 					dataType: 'text json',
 					success: function(data){ 
 						resolve(data);
-						console.log(data);
 					 },
 					error: function(data){ 
 						reject(data.responseJSON); 
-						console.log(data);
 					}
 				}).done(function(data){
 					console.log(data);
@@ -148,7 +148,7 @@ function logIn(username, password) {
 			},
 			error: function(data){ 
 				console.log('login error', data)
-				console.log(state);
+				handleLoginErrors();
 				reject(data); 
 		}}).done(function(data){
 			console.log("login error", data);
@@ -162,6 +162,10 @@ function logIn(username, password) {
 			getGoals(displayGoalsByUser);
 		})
 	});
+}
+
+function handleLoginErrors(){
+		alert('Username and Password does not exist. Please try again.');
 }
 
 function getAndDisplay() {
