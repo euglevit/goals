@@ -9,15 +9,12 @@ const {User} = require('./models');
 
 const router = express.Router();
 const createAuthToken = user => {
-  console.log('create', user);
   return jwt.sign({user}, config.JWT_SECRET, {
       subject: user.username,
       expiresIn: config.JWT_EXPIRY,
       algorithm: 'HS256'
   });
-  console.log('return complete');
 };
-
 
 router.post('/', (req, res) => {
   const requiredFields = ['username', 'password'];
