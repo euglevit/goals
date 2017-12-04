@@ -236,7 +236,7 @@ $(document).ready(function () {
 		}
 	});
 
-	//click to login to app
+	//click to Login to app
 	$('#login-form-js').submit(function (event) {
 		event.preventDefault();
 		let username = $('#username-js-login').val();
