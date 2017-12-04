@@ -220,6 +220,8 @@ $(document).ready(function () {
 		`
 		)
 		$('.secondary-container').html('');
+		$('.new-goal').html('');
+		$('.new-goal').attr('val','false');
 	})
 
 	//handles the sign up
@@ -355,7 +357,7 @@ $(document).ready(function () {
 						<div class='box-buttons'>
 						<button class='btn submit-update' value=${data[i]._id}>Go!</button>
 						<button type="button" class="delete-button btn btn-default btn-sm" val=${data[i]._id}>
-          					<span class="glyphicon glyphicon-trash"></span> <span class='trash'>Trash</span> 
+          					<span class="glyphicon glyphicon-trash"></span> <span class='trash'>Delete Goal</span> 
         				</button>
         				<button aria-expanded="false" type="button" data-toggle='collapse' data-target='#updates-collapse${data[i]._id}' class="collapse.in show-updates-button btn btn-default btn-sm" val=${data[i]._id}>
 				          <span class="glyphicon glyphicon-list-alt"></span> <span class='view-updates'>View Updates</span>
