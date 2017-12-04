@@ -7,12 +7,23 @@ const passport = require('passport');
 const passportJWT = require("passport-jwt");
 // const cors = require('cors');
 
-const {DATABASE_URL, PORT} = require('./config');
-const {GoalPost} = require('./models');
+const {
+  DATABASE_URL,
+  PORT
+} = require('./config');
+const {
+  GoalPost
+} = require('./models');
 
 const app = express();
-const {router: usersRouter} = require('./users');
-const {router: authRouter, basicStrategy, jwtStrategy} = require('./auth');
+const {
+  router: usersRouter
+} = require('./users');
+const {
+  router: authRouter,
+  basicStrategy,
+  jwtStrategy
+} = require('./auth');
 // const {router: loginRouter} = require('./login');
 
 app.use(morgan('dev'));
@@ -21,18 +32,18 @@ app.use(express.static('public'))
 passport.use(basicStrategy);
 // app.use(cors);
 
-app.use(function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Content-Type,Authorization');
-    res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE');
-    if (req.method === 'OPTIONS') {
-        return res.send(204);
-    }
-    next();
+app.use(function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Content-Type,Authorization');
+  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE');
+  if (req.method === 'OPTIONS') {
+    return res.send(204);
+  }
+  next();
 });
 
 app.use(passport.initialize());
-passport.use('local' , basicStrategy);
+passport.use('local', basicStrategy);
 
 passport.use(jwtStrategy);
 
@@ -42,53 +53,47 @@ app.use('/api/auth/', authRouter);
 
 mongoose.Promise = global.Promise;
 
-const jwtAuth = passport.authenticate('jwt', {session: false});
+const jwtAuth = passport.authenticate('jwt', {
+  session: false
+});
 
 
-app.get('/goals', jwtAuth , (req, res) => {
-  console.log('user', req.user.username);
+app.get('/goals', jwtAuth, (req, res) => {
   GoalPost
-    .find({userId: req.user.username})
+    .find({
+      userId: req.user.username
+    })
     .then(posts => {
       res.json(posts);
     })
     .catch(err => {
       console.error(err);
-      res.status(500).json({error: 'something went terribly wrong'});
+      res.status(500).json({
+        error: 'something went terribly wrong'
+      });
     });
 });
 
-
-// app.get('/goals/:_id', (req, res) => {
-//   GoalPost
-//     .find({_id: req.params._id})
-//     .then(console.log('hey2'))
-//     .then(posts => {
-//       res.json(posts.map(post => post.apiRepr()));
-//     })
-//     .catch(err => {
-//       console.error(err);
-//       res.status(500).json({error: 'something went horribly awry'});
-//     });
-// });
-
 app.get('/goals/:userId/', (req, res) => {
   GoalPost
-    .find({userId: req.params.userId})
-    .then(console.log('hey'))
+    .find({
+      userId: req.params.userId
+    })
     .then(posts => {
       res.json(posts.map(post => post.apiRepr()));
     })
     .catch(err => {
       console.error(err);
-      res.status(500).json({error: 'something went horribly awry'});
+      res.status(500).json({
+        error: 'something went horribly awry'
+      });
     });
 });
 
 
 app.post('/goals', jwtAuth, (req, res) => {
   const requiredFields = ['goal'];
-  for (let i=0; i<requiredFields.length; i++) {
+  for (let i = 0; i < requiredFields.length; i++) {
     const field = requiredFields[i];
     if (!(field in req.body)) {
       const message = `Missing \`${field}\` in request body`
@@ -102,21 +107,22 @@ app.post('/goals', jwtAuth, (req, res) => {
       goal: req.body.goal,
       userId: req.user.username,
       complete: false,
-      shortTermGoals: [
-	],
-	updates: []
+      shortTermGoals: [],
+      updates: []
     })
     .then(goalPost => res.status(201).json(goalPost.apiRepr()))
     .catch(err => {
-        console.error(err);
-        res.status(500).json({error: 'Something went wrong'});
+      console.error(err);
+      res.status(500).json({
+        error: 'Something went wrong'
+      });
     });
 
 });
 
-app.post('/goals/:id/shortTermGoals', (req,res) => {
-	const requiredFields = ['shortGoal'];
-	for (let i=0; i<requiredFields.length; i++) {
+app.post('/goals/:id/shortTermGoals', (req, res) => {
+  const requiredFields = ['shortGoal'];
+  for (let i = 0; i < requiredFields.length; i++) {
     const field = requiredFields[i];
     if (!(field in req.body)) {
       const message = `Missing \`${field}\` in request body`
@@ -125,26 +131,27 @@ app.post('/goals/:id/shortTermGoals', (req,res) => {
     }
   }
   GoalPost
-  	.findById(req.params.id)
+    .findById(req.params.id)
     .then(goalPost => {
-    	console.log(goalPost);
-    	goalPost.shortTermGoals = (goalPost.shortTermGoals || []).concat({
-	      	shortGoal: req.body.shortGoal,
-			date : req.body.date,
-			complete: false
-		})
-  		goalPost.save()
-    	res.status(201).json(goalPost.apiRepr())
+      goalPost.shortTermGoals = (goalPost.shortTermGoals || []).concat({
+        shortGoal: req.body.shortGoal,
+        date: req.body.date,
+        complete: false
+      })
+      goalPost.save()
+      res.status(201).json(goalPost.apiRepr())
     })
     .catch(err => {
-        console.error(err);
-        res.status(500).json({error: 'Something went wrong'});
+      console.error(err);
+      res.status(500).json({
+        error: 'Something went wrong'
+      });
     });
 });
 
-app.post('/goals/:id/updates', jwtAuth, (req,res) => {
-	const requiredFields = ['update'];
-	for (let i=0; i<requiredFields.length; i++) {
+app.post('/goals/:id/updates', jwtAuth, (req, res) => {
+  const requiredFields = ['update'];
+  for (let i = 0; i < requiredFields.length; i++) {
     const field = requiredFields[i];
     if (!(field in req.body)) {
       const message = `Missing \`${field}\` in request body`
@@ -153,21 +160,22 @@ app.post('/goals/:id/updates', jwtAuth, (req,res) => {
     }
   }
   GoalPost
-  	.findById(req.params.id)
+    .findById(req.params.id)
     .then(updatePost => {
-    	console.log(req.body.update);
-    		updatePost.updates = (updatePost.updates || []).concat({
-    		date : req.body.date,
-	      	update: req.body.update
+      updatePost.updates = (updatePost.updates || []).concat({
+        date: req.body.date,
+        update: req.body.update
 
-			
-		})
-  		updatePost.save()
-    	res.status(201).json(updatePost.apiRepr())
+
+      })
+      updatePost.save()
+      res.status(201).json(updatePost.apiRepr())
     })
     .catch(err => {
-        console.error(err);
-        res.status(500).json({error: 'Something went wrong'});
+      console.error(err);
+      res.status(500).json({
+        error: 'Something went wrong'
+      });
     });
 });
 
@@ -175,11 +183,15 @@ app.delete('/goals/:id', (req, res) => {
   GoalPost
     .findByIdAndRemove(req.params.id)
     .then(() => {
-      res.status(204).json({message: 'success'});
+      res.status(204).json({
+        message: 'success'
+      });
     })
     .catch(err => {
       console.error(err);
-      res.status(500).json({error: 'something went terribly wrong'});
+      res.status(500).json({
+        error: 'something went terribly wrong'
+      });
     });
 });
 
@@ -187,9 +199,6 @@ app.delete('/goals/:id', (req, res) => {
 app.put('/goals/:_id', (req, res) => {
 
   if (!(req.params._id && req.body._id && req.params._id === req.body._id)) {
-  	console.log(req.params._id);
-  	console.log(req.body);
-  	console.log(req.body._id);
 
     res.status(400).json({
       error: 'Request path id and request body id values must match'
@@ -206,9 +215,17 @@ app.put('/goals/:_id', (req, res) => {
 
 
   GoalPost
-    .findByIdAndUpdate(req.params._id, {$set: {"shortTermGoals.shortGoal" : "hello hello"}}, {new: true})
+    .findByIdAndUpdate(req.params._id, {
+      $set: {
+        "shortTermGoals.shortGoal": "hello hello"
+      }
+    }, {
+      new: true
+    })
     .then(updatedPost => res.status(204).end())
-    .catch(err => res.status(500).json({message: 'Something went wrong'}));
+    .catch(err => res.status(500).json({
+      message: 'Something went wrong'
+    }));
 });
 
 
@@ -221,80 +238,58 @@ app.put('/goals/:id/shortTermGoals/:_id', (req, res) => {
   }
   const updated = req.body.shortGoal;
 
-  console.log(updated);
-
-console.log(req.params._id);
   GoalPost
-  	// .find({'shortTermGoals': {$elemMatch : {'_id' : req.params._id}}})
-  	.findById(req.params.id)
-  	.then(longTermGoal => {
-  		const shortGoals = longTermGoal.shortTermGoals;
-  		shortGoals.forEach(shortTermGoal => {
-  			console.log('checking', shortTermGoal._id);
-  			if(shortTermGoal._id.toString() === req.params._id){
-
-  				console.log(typeof req.params._id, typeof shortTermGoal._id, shortTermGoal._id);
-
-  				console.log('found it!');
-  				shortTermGoal.shortGoal = updated;
-  			};
-  		});
-  		console.log(longTermGoal);
-  		longTermGoal.save()
-  		res.status(204).end();
-  	})
-    .catch(err => res.status(500).json({message: 'Something went wrong'}));
+    // .find({'shortTermGoals': {$elemMatch : {'_id' : req.params._id}}})
+    .findById(req.params.id)
+    .then(longTermGoal => {
+      const shortGoals = longTermGoal.shortTermGoals;
+      shortGoals.forEach(shortTermGoal => {
+        if (shortTermGoal._id.toString() === req.params._id) {
+          shortTermGoal.shortGoal = updated;
+        };
+      });
+      longTermGoal.save()
+      res.status(204).end();
+    })
+    .catch(err => res.status(500).json({
+      message: 'Something went wrong'
+    }));
 })
 
 //UPDATE Updates
 app.put('/goals/:id/updates/:_id', (req, res) => {
 
-	if (!(req.params._id && req.body._id && req.params._id === req.body._id)) {
+  if (!(req.params._id && req.body._id && req.params._id === req.body._id)) {
     res.status(400).json({
       error: 'Request path id and request body id values must match'
     });
-}
+  }
   const updated = req.body.update;
 
-  console.log(updated);
-
-console.log(req.params._id);
-
-	GoalPost
+  GoalPost
     .findById(req.params.id)
-  	.then(longTermGoal => {
-  		const updatesToGoals = longTermGoal.updates;
-  		updatesToGoals.forEach(updatedGoal => {
-  			console.log('checking', updatedGoal._id);
-  			if(updatedGoal._id == req.params._id){
-
-  				// console.log(typeof req.params._id, typeof shortTermGoal._id, shortTermGoal._id);
-
-  				console.log('found it!');
-  				updatedGoal.update = updated;
-  			};
-  		});
-  		console.log(longTermGoal);
-  		longTermGoal.save()
-  		res.status(204).end();
-  	})
-    .catch(err => res.status(500).json({message: 'Something went wrong'}));
+    .then(longTermGoal => {
+      const updatesToGoals = longTermGoal.updates;
+      updatesToGoals.forEach(updatedGoal => {
+        if (updatedGoal._id == req.params._id) {
+          updatedGoal.update = updated;
+        };
+      });
+      longTermGoal.save()
+      res.status(204).end();
+    })
+    .catch(err => res.status(500).json({
+      message: 'Something went wrong'
+    }));
 });
 
 
 
-// app.delete('/:id', (req, res) => {
-//   BlogPosts
-//     .findByIdAndRemove(req.params.id)
-//     .then(() => {
-//       console.log(`Deleted blog post with id \`${req.params.ID}\``);
-//       res.status(204).end();
-//     });
-// });
 
-
-app.use('*', function(req, res) {
-  res.status(404).json({message: 'Not Found'});
+app.use('*', function (req, res) {
+  res.status(404).json({
+    message: 'Not Found'
+  });
 });
 
 // closeServer needs access to a server object, but that only
@@ -303,20 +298,19 @@ app.use('*', function(req, res) {
 let server;
 
 // this function connects to our database, then starts the server
-function runServer(databaseUrl=DATABASE_URL, port=PORT) {
+function runServer(databaseUrl = DATABASE_URL, port = PORT) {
   return new Promise((resolve, reject) => {
     mongoose.connect(databaseUrl, err => {
       if (err) {
         return reject(err);
       }
       server = app.listen(port, () => {
-        console.log(`Your app is listening on port ${port}`);
-        resolve();
-      })
-      .on('error', err => {
-        mongoose.disconnect();
-        reject(err);
-      });
+          resolve();
+        })
+        .on('error', err => {
+          mongoose.disconnect();
+          reject(err);
+        });
     });
   });
 }
@@ -325,15 +319,14 @@ function runServer(databaseUrl=DATABASE_URL, port=PORT) {
 // use it in our integration tests later.
 function closeServer() {
   return mongoose.disconnect().then(() => {
-     return new Promise((resolve, reject) => {
-       console.log('Closing server');
-       server.close(err => {
-           if (err) {
-               return reject(err);
-           }
-           resolve();
-       });
-     });
+    return new Promise((resolve, reject) => {
+      server.close(err => {
+        if (err) {
+          return reject(err);
+        }
+        resolve();
+      });
+    });
   });
 }
 
@@ -343,4 +336,8 @@ if (require.main === module) {
   runServer().catch(err => console.error(err));
 };
 
-module.exports = {runServer, app, closeServer};
+module.exports = {
+  runServer,
+  app,
+  closeServer
+};

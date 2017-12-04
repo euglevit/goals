@@ -19,15 +19,9 @@ const createAuthToken = user => {
 };
 
 
-
-// const jsonParser = bodyParser.json();
-
-// Post to register a new user
-
 router.post('/', (req, res) => {
   const requiredFields = ['username', 'password'];
   const missingField = requiredFields.find(field => !(field in req.body));
-  console.log(req.body);
 
 
   const stringFields = ['username', 'password', 'firstName', 'lastName'];
@@ -147,82 +141,10 @@ router.post('/', (req, res) => {
     });
 });
 
-// router.post('/login', (req, res) => {
-//   const { username, password } = req.body
-//   if (!username) {
-//       return res.status(400).send('Username is missing')
-//   }
-//   if (!password) {
-//       return res.status(400).send('Password is missing')
-//   }
-//   User.findOne({ username }).then(userExist => {
-//       if (!userExist) {
-//           return res.status(400).send('User not exist plz signup first')
-//       }
-
-//       const isValidPwd = bcrypt.compareSync(password, userExist.password)
-
-//       if (!isValidPwd) {
-//           return res.status(400).send('Incorect credentiels')
-//       }
-
-//       return res.status(200).json(userExist)
-//   })
-// })
-
-
-// router.get('/login', (req, res) => {
-//   return User.find()
-//     .then(users => res.json(users.map(user => user.apiRepr())))
-//     .catch(err => res.status(500).json({message: 'Internal server error'}));
-// });
-
-// router.post('/login/:username', (req, res) => {
-//   console.log(req.params.username);
-  
-//   // const user = [ {username : req.username}];
-//   // // const user = [ { id: 3}];
-//   // const token = jwt.sign({user}, 'my_secret_key');
-  // return User
-  //   .find({username : req.body.username})
-  //   .then(data => {
-  //     const user = [ {username : data}];
-  //     const token = jwt.sign({user}, 'my_secret_key');
-  //     return token;
-  //   } )
-  //   .then( data => {
-  //     res.json({
-  //     token : data
-  //     })
-  //   }
-  //   )
-//   });
-
-// router.get('/protected', ensureToken, (req,res) => {
-//   console.log(ensureToken);
-
-//   jwt.verify(req.token, 'my_secret_key', function(err,data) {
-//     if (err) {
-//       res.sendStatus(403);
-//     }
-//     else {
-//       res.json({
-//         text : 'this is protected',
-//         data : data
-//       });
-//     }
-//   })
-// });
-
 router.get('/', (req, res) => {
   return User.find()
     .then(users => res.json(users.map(user => user.apiRepr())))
     .catch(err => res.status(500).json({message: 'Internal server error'}));
 });
-// Never expose all your users like below in a prod application
-// we're just doing this so we have a quick way to see
-// if we're creating users. keep in mind, you can also
-// verify this in the Mongo shell.
-
 
 module.exports = {router};
