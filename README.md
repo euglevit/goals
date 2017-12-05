@@ -12,13 +12,13 @@ HitGoal gives users a way to keep track of their progress towards long term goal
 ![Landing Page](/HitGoalLandingPage.png "Landing Page")
 
 ## Main Page
-![Main Page] (/HitGoalGoalsView.png "Main Page)
+![Main Page](/HitGoalGoalsView.png "Main Page")
 
 ## New Goal Entry
-![New Goal Entry] (/HitGoalEnterNewGoal.png "New Goal Entry")
+![New Goal Entry](/HitGoalEnterNewGoal.png "New Goal Entry")
 
 ## Updated View
-![Updated View] (/HitGoalUpdatedView.png "Updated View")
+![Updated View](/HitGoalUpdatedView.png "Updated View")
 
 ## View Updates
-![View Updates] (/HitGoalViewUpdates.png "View Updates")
+![View Updates](/HitGoalViewUpdates.png "View Updates")
