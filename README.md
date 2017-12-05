@@ -4,4 +4,4 @@
 ![Landing Page] (https://github.com/euglevit/goals/blob/master/HitGoal%20Landing%20Page.png "optional title")
 
 Landing Page
-![Landing Page](/HitGoal Landing Page.png "Optional Title")
+![Landing Page](/HitGoalEnterNewGoal.png "Optional Title")
