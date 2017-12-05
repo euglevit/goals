@@ -5,7 +5,7 @@ HitGoal gives users a way to keep track of their progress towards long term goal
 
 ## Technologies Used
 
-(HTML/CSS/Javascript/jQuery)
+(Javascript/Jquery/Bootstrap/Node.js/Mongo)
 
 ## Landing Page
 
