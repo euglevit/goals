@@ -207,14 +207,15 @@ $(document).ready(function () {
 		</div>
 		<div class='right-start'>
 			<h1>Sign Up For Free!</h1>
-			<button class="loginBtn loginBtn--facebook">Sign Up With Facebook</button>
-		</br>
-			<h2>Or</h2>
 			<form id="sign-up-form-js">
 				<input id="username-js-signup" class="username-form user-info" type="text" autocomplete="off" name="username" placeholder="Username">
 				<input id="password-js-signup" class="password-form user-info password-js" type="password" autocomplete="off" name="password" placeholder="Password"> </br>			
 				<button class="sign-up-button button">Sign Up</button>
 			</form>
+			<h2>Or</h2>
+			<button class="loginBtn loginBtn--facebook">Sign Up With Facebook</button>
+		</br>
+
 		</div>
 	</div>
 		`
