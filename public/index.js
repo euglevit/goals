@@ -248,6 +248,13 @@ $(document).ready(function () {
 		};
 	});
 
+	$(document).on('click','.demo-button', function(event) {
+		event.preventDefault();
+		let username = 'demo';
+		let password = 'demo1234'
+			logIn(username,password);
+	})
+
 	//click button to show all the updates
 	$(document).on('click', '.show-updates-button', function (event) {
 		event.preventDefault();
@@ -321,7 +328,8 @@ $(document).ready(function () {
 				<div class='goal-container' val=${data[i]._id}>
 
 					<div class='goal-name'>
-						<h2>${data[i].goal}<p class='last-updated' value=${data[i]._id}> Last update on ${new Date([data[i].updates[data[i].updates.length-1].date]).toLocaleDateString()}</p></h2>	
+						<h2>${data[i].goal}</h2>
+						<p class='last-updated' value=${data[i]._id}> Last update on ${new Date([data[i].updates[data[i].updates.length-1].date]).toLocaleDateString()}</p>	
 						<textarea class='submit-data form-control' value=${data[i]._id} placeholder='Tell us about your progress today!'></textarea>
 						</div>
 						<div class='box-buttons'>
@@ -351,7 +359,8 @@ $(document).ready(function () {
 					`
 				<div class='goal-container' val=${data[i]._id}>
 					<div class='goal-name'>
-						<h2>${data[i].goal}<p class='last-updated' value=${data[i]._id}> No updates! Post an update!</p></h2>
+						<h2>${data[i].goal}</h2>
+						<p class='last-updated' value=${data[i]._id}> No updates! Post an update!</p>
 						<textarea class='submit-data form-control' value=${data[i]._id} placeholder='Tell us about your progress today!'></textarea>
 						</div>
 						<div class='box-buttons'>

@@ -1,5 +1,8 @@
 body {
-	background-image: url('https://www.planwallpaper.com/static/images/twe_background-1920x1080.jpg');
+	background-image: url('http://infinitegroup-inc.com/infinitewp/wp-content/uploads/2015/10/bigstock-Concept-conceptual-D-male-bus-82608323.jpg');
+	background-repeat: repeat;
+	background-size: cover;
+	background-position: center;
 }
 
 h1 {}
@@ -49,23 +52,37 @@ h1 {}
 .log-in-button:hover {
 	background: #0d9f40;
 }
-
-.navbar h1 {
-	display: inline-block;
+.demo-button {
+	padding: 5px;
+	border: none;
+	background: #2dbe60;
 	color: white;
-	margin-left: 20px;
-	margin-top: 18px;
-	margin-right: 10px;
+	width: 70px;
+}
+
+.demo-button:hover {
+	background: #0d9f40;
 }
 
 .appname {
+	display: inline-block;
+	color: white;
+	margin-left: 20px;
+	margin-top: 7px;
+	margin-right: 10px;
+	font-family: 'Nothing You Could Do', cursive;
+	font-family: 'Gochi Hand', cursive;
+	font-size: 60px;
+}
+
+/* .appname {
 	font-size: 30px;
 	color: white;
 	overflow: none;
 	vertical-align: middle;
 	line-height: 68px;
 	padding-right: 30px;
-}
+} */
 .new-long-term-goal{
 	width: 80%;
 	margin: auto;
@@ -75,8 +92,9 @@ h1 {}
 }
 
 .new-goal-button {
-	font-size: 1.6em;
+	font-size: 18px;
 	color: white;
+	font-weight: bold;
 }
 
 .new-goal-button:hover {
@@ -108,7 +126,6 @@ h1 {}
 	font-size: 18px;
 	color: white;
 	text-align: center;
-	vertical-align: middle;
 	line-height: 68px;
 	margin-right: 14px;
 }
@@ -116,7 +133,7 @@ h1 {}
 .goal-button {
 	vertical-align: middle;
 	line-height: 68px;
-	font-size: 10px;
+	/* font-size: 10px; */
 }
 
 .footer {
@@ -209,6 +226,7 @@ h1 {}
 	background-color: #4267b2;
 	top: 0px;
 	margin-top: 0px;
+	position: relative;
 }
 
 .nav {
@@ -236,6 +254,8 @@ h1 {}
 
 .navright {
 	float: right;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	vertical-align: middle;
 }
 
 .updates-date {
@@ -269,7 +289,6 @@ h1 {}
 
 h2 {
 	text-overflow: ellipsis;
-	white-space: nowrap;
 	overflow: hidden !important;
 	text-align: left;
 	top: -15px;
@@ -277,15 +296,19 @@ h2 {
 	font-size: 23px;
 	margin-left: 18px;
 	margin-bottom: 12px;
+	white-space: nowrap;
 }
 
 .login-form {
-	margin-top: 26px;
+	margin-top: 22px;
 	margin-right: 27px;
 	display: inline-block;
 	position: absolute;
 	right: -10px;
 	min-width: 390px;
+	/* height: 100%; */
+	vertical-align: middle;
+	/* float: right; */
 }
 
 .login-username {
@@ -305,6 +328,7 @@ h2 {
 .start-page {
 	margin: auto;
 	margin-bottom: 300px;
+	margin-top: 20px;
 }
 
 .left-start {
@@ -344,10 +368,10 @@ h2 {
 }
 
 .right-start h2 {
-	margin-left: auto;
-	display: inline-block;
-	margin-top: 50px;
-	margin-right: auto;
+	display: block;
+	padding-top: 41px;
+	text-align: center;
+	margin: auto;
 }
 
 .start-content {
@@ -380,6 +404,9 @@ h2 {
 	color: white;
 	text-decoration: none;
 	margin-left: 8px;
+	/* font-weight: bold; */
+	font-size: 16px;
+	vertical-align: middle;
 }
 
 .sign-out:hover {
@@ -403,12 +430,13 @@ h2 {
 }
 
 .last-updated {
-	display: inline;
+	display: inline-block;
 	font-size: 14px;
 	float: right;
 	position: relative;
-	top: 10px;
-	margin-right: 10px;
+	/* top: 10px; */
+	/* margin-right: 10px; */
+	min-width: 200px;
 }
 
 .loginBtn {
@@ -464,6 +492,15 @@ h2 {
 	background-image: linear-gradient(#5B7BD5, #4864B1);
 }
 
+@-moz-document url-prefix() { 
+  .navright {
+     margin-top: -83px;
+	}
+	.submit-update{
+		margin-top: 25px;
+	}
+}
+
 @media all and (max-width: 900px) {
 	.left-start {
 		width: 500px;
@@ -497,6 +534,21 @@ h2 {
 	}
 }
 
+@media all and (max-width: 730px) {
+	.navbar h1{
+		display: none;
+	}
+	.login-form{
+		width: 70%;
+		margin: 22px auto;
+		display: block;
+		height: 100%;
+		/* float: none; */
+		position: relative;
+		min-width: 477px;
+	}
+}
+
 @media all and (max-width: 665px) {
 	.delete-button {
 		left: 1%;
@@ -511,6 +563,23 @@ h2 {
 	.right-start {
 		width: 400px;
 		height: 350px;
+	}
+}
+
+@media all and (max-width: 640px) {
+	.login-username{
+		padding-right: 1px;
+		width: 100px;
+	}
+	.login-password{
+		padding-right: 1px;
+		width: 100px;
+	}
+	.login-form{
+		min-width: 380px;
+		/* display: block; */
+		width: 73%;
+		/* text-align: center; */
 	}
 }
 
@@ -557,6 +626,22 @@ h2 {
 	}
 }
 
+@media all and (max-width: 430px) {
+	.start-content{
+		margin-left: 0px;
+		width: 100%;
+	}
+	.username-form{
+		width: 265px;
+	}
+	.password-form{
+		width: 265px;
+	}
+	.sign-up-button{
+		width: 265px;
+	}
+}
+
 @media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
 	.goal-container {
 		min-height: 200px;
@@ -598,10 +683,10 @@ h2 {
 		margin-right: auto;
 	}
 	.login-username {
-		width: 133px;
+		width: 100px;
 	}
 	.login-password {
-		width: 133px;
+		width: 100px;
 	}
 	.appname {
 		font-size: 0px;
@@ -621,10 +706,12 @@ h2 {
 		text-align: left;
 		position: absolute;
 		left: 10px;
+		vertical-align: middle;
+		line-height: 27px;
 	}
 	.goal-button {
 		position: absolute;
-		left: 190px;
+		left: 176px;
 		top: 2px;
 	}
 	.sign-out {

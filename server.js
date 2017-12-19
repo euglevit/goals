@@ -165,8 +165,6 @@ app.post('/goals/:id/updates', jwtAuth, (req, res) => {
       updatePost.updates = (updatePost.updates || []).concat({
         date: req.body.date,
         update: req.body.update
-
-
       })
       updatePost.save()
       res.status(201).json(updatePost.apiRepr())

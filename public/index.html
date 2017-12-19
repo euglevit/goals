@@ -5,26 +5,28 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="index.css">
+	<link href="https://fonts.googleapis.com/css?family=Gochi+Hand|Nothing+You+Could+Do" rel="stylesheet">
 	<title></title>
 </head>
 
 <body>
 	<div class='navbar'>
 		<div class='startup-nav'>
-			<h1>HitGoal</h1>
+			<h1 class='appname'>HitGoal</h1>
 			<form class='login-form' id="login-form-js">
 				<input id="username-js-login" class="login-username user-info" type="text" autocomplete="off" name="username" placeholder="Username">
 				<input id="password-js-login" class="login-password user-info" type="password" autocomplete="off" name="password" placeholder="Password">
 				<button class="log-in-button button">Log In</button>
+				<button class="demo-button button">Demo</button>
 			</form>
 		</div>
 		<div class='logged-in-nav' style='display:none;'>
 			<ul class='nav'>
-				<li class='appname'>Go Goals</li>
+				<li class='appname'>HitGoal</li>
 				<div class='navright'>
 					<li class='username'></li>
 					<li class='goal-button'>
-						<span class="new-goal-button glyphicon glyphicon-plus"></span>
+						<span class="new-goal-button glyphicon glyphicon-plus">New</span>
 					</li>
 					<li>
 						<a class='sign-out' href=''>Sign-Out</a>
@@ -41,15 +43,16 @@
 			</div>
 			<div class='right-start'>
 				<h1>Sign Up For Free!</h1>
-				<button class="loginBtn loginBtn--facebook">Sign Up With Facebook</button>
-				</br>
-				<h2>Or</h2>
 				<form id="sign-up-form-js">
 					<input id="username-js-signup" class="username-form user-info" type="text" autocomplete="off" name="username" placeholder="Username">
 					<input id="password-js-signup" class="password-form user-info password-js" type="password" autocomplete="off" name="password"
 					  placeholder="Password (8 characters min)"> </br>
 					<button class="sign-up-button button">Sign Up</button>
 				</form>
+				<h2>Or</h2>
+				<button class="loginBtn loginBtn--facebook">Sign Up With Facebook</button>
+				</br>
+
 			</div>
 		</div>
 	</div>
