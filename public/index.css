@@ -218,6 +218,7 @@ h1 {}
 	display: block;
 	margin: auto;
 	text-align: center;
+	margin-top: 25px;
 }
 
 .navbar {
