@@ -61,7 +61,6 @@ const jwtAuth = passport.authenticate('jwt', {
 app.get('/goals', jwtAuth, (req, res) => {
   GoalPost
     .find({
-      userId: req.user.username
     })
     .then(posts => {
       res.json(posts);
