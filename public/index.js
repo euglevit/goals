@@ -41,7 +41,10 @@ $(document).ready(function () {
 					resolve(data);
 				},
 				error: function (data) {
+					console.log(data.responseJSON);
+					console.log(data);
 					reject(data.responseJSON);
+
 				}
 			}).done(function (data) {
 				logIn(username, password);
