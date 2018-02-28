@@ -145,7 +145,7 @@ $(document).ready(function () {
 			contentType: "application/json"
 		}).done(function (data) {
 			$(`.goal-container[val=${goalId}]`).css('border-left', '20px solid #32CD32');
-			$(`.last-updated[value=${goalId}]`).html(`<p class='last=updated' value=${goalId}}>Last update on ${new Date([data.updates[data.updates.length-1].date]).toLocaleDateString()}</p>`)
+			$(`.last-updated[value=${goalId}]`).html(`Last update on ${new Date([data.updates[data.updates.length-1].date]).toLocaleDateString()}`)
 			$(`.updates-list[val=${goalId}]`).prepend(`<li class='updates-list-li list-group-item'>${data.updates[data.updates.length-1].update} <cite><p class='updates-date'>- ${new Date(data.updates[data.updates.length-1].date).toLocaleDateString()}</p></cite></li>`)
 		})
 	}
@@ -282,6 +282,34 @@ $(document).ready(function () {
 		deleteGoal(deleteIndex);
 	})
 
+	$(document).on('click', '.show-updates-button', function (event) {
+		event.preventDefault();
+		let index = $(this).attr('val');
+		if($(`.updates-list[val=${index}]`).css('display') === 'block'){
+			$(`.updates-list[val=${index}]`).css('display','none');
+		}else if($(`.updates-list[val=${index}]`).css('display') === 'none'){
+			$(`.updates-list[val=${index}]`).css('display','block');
+		};
+
+	})
+
+	let acc = document.getElementsByClassName('show-updates-button');
+
+	for(let i=0; i<acc.length; i++){
+		acc[i].addEventListener('click', function() {
+			this.classList.toggle('active');
+		})
+
+		let panel = this.nextElementSibling;
+		if(panel.style.display === 'block'){
+			panel.style.display = 'none';
+		}else{
+			panel.style.display = 'block';
+		}
+	}
+
+
+
 	//click to create a textbox to enter a new goal
 	$(document).on('click', '.new-goal-button', function (event) {
 		event.preventDefault();
@@ -338,13 +366,13 @@ $(document).ready(function () {
 						<div class='box-buttons'>
 						<button class='btn submit-update' value=${data[i]._id}>Go!</button>
 						<button type="button" class="delete-button btn btn-default btn-sm" val=${data[i]._id}>
-          					<span class="glyphicon glyphicon-trash"></span> <span class='trash'>Delete Goal</span> </button>
+						<i class="far fa-trash-alt"></i> <span class='trash'>Delete Goal</span> </button>
           				<button aria-expanded="false" type="button" data-toggle='collapse' data-target='#updates-collapse${data[i]._id}' class="collapse.in show-updates-button btn btn-default btn-sm" val=${data[i]._id}>
-				          <span class="glyphicon glyphicon-list-alt"></span> <span class='view-updates'>View Updates</span>
+				          <i class="fas fa-list-ul"></i> <span class='view-updates'>View Updates</span>
 								</button>
 								</div>
 				        <div class='show-updates collapse' id='updates-collapse${data[i]._id}' value=${data[i]._id}'>
-							<ul class='updates-list' val=${data[i]._id} ></ul>				
+							<ul class='updates-list' val=${data[i]._id} style='display:none'></ul>				
 					</div>
 				</div>
 				`
@@ -369,15 +397,15 @@ $(document).ready(function () {
 						<div class='box-buttons'>
 						<button class='btn submit-update' value=${data[i]._id}>Go!</button>
 						<button type="button" class="delete-button btn btn-default btn-sm" val=${data[i]._id}>
-          					<span class="glyphicon glyphicon-trash"></span> <span class='trash'>Delete Goal</span> 
+						<i class="far fa-trash-alt"></i> <span class='trash'>Delete Goal</span> 
         				</button>
         				<button aria-expanded="false" type="button" data-toggle='collapse' data-target='#updates-collapse${data[i]._id}' class="collapse.in show-updates-button btn btn-default btn-sm" val=${data[i]._id}>
-				          <span class="glyphicon glyphicon-list-alt"></span> <span class='view-updates'>View Updates</span>
+								<i class="fas fa-list-ul"></i> <span class='view-updates'>View Updates</span>
 								</button>
 								</div>
 								<div class='show-updates collapse' id='updates-collapse${data[i]._id}' value=${data[i]._id}'>
 								
-							<ul class='updates-list' val=${data[i]._id} ></ul>
+							<ul class='updates-list' style='display:none' val=${data[i]._id} ></ul>
 					</div>
 				</div>
 				`

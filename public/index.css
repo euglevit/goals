@@ -1,9 +1,14 @@
+html{
+}
 body {
-	background-image: url('https://maldenaccess.files.wordpress.com/2016/11/sky-web-background.jpg?w=2400');
+	/* background-image: url('http://atextures.com/wp-content/uploads/2014/08/Wooden-Background-14-625x407.jpg'); */
 	background-repeat: repeat;
-	background-size: cover;
-	background-position: center;
-	overflow-y: none;
+	/* background-size: cover; */
+	/* background-position: center; */
+	margin: 0;
+	font-family: 'BioRhyme', serif;
+	background-color: rgba(17,170,153,0.6);
+	/* opacity: 0.8; */
 }
 
 ::-webkit-scrollbar {
@@ -11,10 +16,16 @@ body {
   background: transparent;  /* optional: just make scrollbar invisible */
 }
 
-h1 {}
+#sign-up-form-js{display: flex;flex-direction: column;align-items: center;}
+
+button {
+	cursor: pointer;
+}
 
 .main-container {
 	margin-bottom: 0px;
+	margin-top: 40px;
+	font-family: 'Gentium Basic', serif;
 }
 
 .goal-container {
@@ -48,22 +59,24 @@ h1 {}
 }
 
 .log-in-button {
-	padding: 5px;
+	padding: 10px;
 	border: none;
 	background: #2dbe60;
 	color: white;
 	width: 70px;
+	font-size: 14px;
 }
 
 .log-in-button:hover {
 	background: #0d9f40;
 }
 .demo-button {
-	padding: 5px;
+	padding: 10px;
 	border: none;
 	background: #2dbe60;
 	color: white;
 	width: 70px;
+	font-size: 14px;
 }
 
 .demo-button:hover {
@@ -71,14 +84,15 @@ h1 {}
 }
 
 .appname {
-	display: inline-block;
 	color: white;
-	margin-left: 20px;
-	margin-top: 7px;
-	margin-right: 10px;
 	font-family: 'Nothing You Could Do', cursive;
 	font-family: 'Gochi Hand', cursive;
 	font-size: 60px;
+	margin-bottom: 0px;
+	display: flex !important;
+	align-items: center;
+	padding-left: 10px;
+	margin-top: 0px;
 }
 
 /* .appname {
@@ -92,6 +106,13 @@ h1 {}
 .new-long-term-goal{
 	width: 80%;
 	margin: auto;
+	display: flex;
+	resize: none;
+	padding: 6px 12px;
+	font-size: 14px;
+	line-height: 1.42857143;
+	border: 1px solid #ccc;
+	border-radius: 4px;
 }
 .secondary-container {
 	margin-bottom: 100px;
@@ -101,6 +122,10 @@ h1 {}
 	font-size: 18px;
 	color: white;
 	font-weight: bold;
+}
+
+.new-goal{
+	margin-top: 40px;
 }
 
 .new-goal-button:hover {
@@ -124,7 +149,7 @@ h1 {}
 	margin-left: auto;
 	margin-right: auto;
 	max-width: 585px;
-	padding: 3px;
+	padding: 21px;
 	padding-bottom: 16px;
 }
 
@@ -137,19 +162,20 @@ h1 {}
 }
 
 .goal-button {
-	vertical-align: middle;
+	align-self: center;
 	line-height: 68px;
 	/* font-size: 10px; */
 }
 
 .footer {
-	position: fixed;
+	position: absolute;
 	width: 100%;
 	background-color: #f2f2f2;
-	height: 40px;
-	bottom: 0px;
+	height: 52;
+	/* bottom: 0px; */
 	clear: both;
 	margin: 0px;
+	overflow: hidden;
 }
 
 .update-class {
@@ -179,6 +205,7 @@ h1 {}
 
 .box-buttons {
 	display: block;
+	padding-top: 20px;
 }
 
 .show-updates-button {
@@ -187,7 +214,10 @@ h1 {}
 	position: relative;
 	top: 0.2em;
 	border: none;
+	transition: 0.4s;
 }
+
+
 
 .show-updates-button:hover {
 	background-color: #fff;
@@ -208,6 +238,9 @@ h1 {}
 	padding-bottom: 32px;
 	margin-right: auto;
 	padding-left: 0px;
+	transition: display 0.2s ease-out;
+	list-style: none;
+	border-top: 1px solid #adadad;
 }
 
 .submit-data {
@@ -216,6 +249,11 @@ h1 {}
 	display: block;
 	width: 80%;
 	resize: none;
+	padding: 6px 12px;
+	font-size: 14px;
+	line-height: 1.42857143;
+	border: 1px solid #ccc;
+	border-radius: 4px;
 }
 
 .submit-update {
@@ -225,29 +263,37 @@ h1 {}
 	margin: auto;
 	text-align: center;
 	margin-top: 25px;
+	border-radius: 4px;
+	padding: 6px 12px;
+	font-size: 14px;
 }
 
 .navbar {
-	display: block;
+	display: inline-block;
 	height: 74px;
-	background-color: #4267b2;
+	background: rgb(17,170,153);
 	top: 0px;
-	margin-top: 0px;
 	position: relative;
+	width: 100%;
 }
 
 .nav {
 	white-space: nowrap;
-	margin-left: auto;
-	margin-right: auto;
-	width: 90%;
+	width: 100%;
 	position: relative;
-	display: block;
+	display: grid;
 	height: 74px;
 	text-overflow: ellipsis;
+	margin-left: 0px;
+	margin-right: 0px;
+	padding-left: 0px;
+	grid-template-columns: 1fr auto;
+	margin-bottom: 0px;
 }
 
 .nav li {
+	align-self:  center;
+	height: 100%;
 	display: inline;
 }
 
@@ -260,9 +306,10 @@ h1 {}
 }
 
 .navright {
-	float: right;
 	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-	vertical-align: middle;
+	align-self: center;
+	display: flex;
+	padding-right: 10px;
 }
 
 .updates-date {
@@ -278,6 +325,7 @@ h1 {}
 	left: 29px;
 	top: 10px;
 	position: relative;
+	padding: 5px;
 }
 
 .submit-new-goals {
@@ -292,6 +340,9 @@ h1 {}
 
 .updates-list-li {
 	font-size: 17px;
+	border: 1px solid #adadad;
+	border-top: none;
+	padding: 9px;
 }
 
 h2 {
@@ -307,35 +358,31 @@ h2 {
 }
 
 .login-form {
-	margin-top: 22px;
-	margin-right: 27px;
-	display: inline-block;
-	position: absolute;
-	right: -10px;
-	min-width: 390px;
-	/* height: 100%; */
 	vertical-align: middle;
-	/* float: right; */
+	align-self: center;
+	justify-self: flex-end;
+	padding-right: 10px;
 }
 
 .login-username {
 	border: none;
-	padding: 5px;
+	padding: 10px;
 	border-radius: 4px;
 	background: white;
+	font-size: 14px;
 }
 
 .login-password {
 	border: none;
-	padding: 5px;
+	padding: 10px;
 	border-radius: 4px;
 	background: white;
+	font-size: 14px;
 }
 
 .start-page {
 	margin: auto;
 	margin-bottom: 300px;
-	margin-top: 20px;
 }
 
 .left-start {
@@ -392,10 +439,11 @@ h2 {
 	background: white;
 	border: 1px solid #eef2f3;
 	border-radius: 4px;
-	padding: 16px 12px 15px;
+	padding: 16px 2px 15px;
 	width: 350px;
 	margin-top: -10px;
 	color: black;
+	font-size: 14px;
 }
 
 .password-form {
@@ -403,9 +451,10 @@ h2 {
 	background: white;
 	border: 1px solid #eef2f3;
 	border-radius: 4px;
-	padding: 16px 12px 15px;
+	padding: 16px 2px 15px;
 	width: 350px;
 	color: black;
+	font-size: 14px;
 }
 
 .sign-out {
@@ -425,16 +474,16 @@ h2 {
 .sign-up-button {
 	text-align: center;
 	color: #fff;
-	background-color: #2dbe60;
+	background-color: #4c69ba;
 	border: 0;
 	border-radius: 4px;
-	padding: 18px 20px 17px;
-	width: 350px;
-	margin-top: 22px;
+	padding: 18px 2px 17px;
+	width: 354px;
+	font-size: 19px;
 }
 
 .sign-up-button:hover {
-	background-color: #0d9f40;
+	background-color: #5b7dbf;
 }
 
 .last-updated {
@@ -477,6 +526,10 @@ h2 {
 
 .loginBtn:active {
 	box-shadow: inset 0 0 0 32px rgba(0, 0, 0, 0.1);
+}
+
+.sign-out-div{
+	align-self: center;
 }
 
 
@@ -529,31 +582,34 @@ h2 {
 		display: block;
 		margin: auto;
 		border: none;
+		margin-top: 15px;
 	}
 	.start-content {
 		width: 500px;
 		margin-bottom: 33px;
+		display: flex;
+		flex-direction: column;
 	}
 }
 
 @media all and (max-width: 815px) {
 	.start-page {
-		margin-bottom: 422px;
+		/* margin-bottom: 422px; */
 	}
 }
 
 @media all and (max-width: 730px) {
-	.navbar h1{
-		display: none;
+	.startup-nav h1{
+		display: none !important;
 	}
 	.login-form{
-		width: 70%;
-		margin: 22px auto;
-		display: block;
+	padding-right: 0px;
+	}
+	.startup-nav{
+		display: flex;
+		/* justify-content: space-around; */
+		/* align-content: space-around; */
 		height: 100%;
-		/* float: none; */
-		position: relative;
-		min-width: 477px;
 	}
 }
 
@@ -585,10 +641,8 @@ h2 {
 	}
 	.login-form{
 		min-width: 380px;
-		/* display: block; */
-		width: 73%;
-		/* text-align: center; */
 	}
+	
 }
 
 @media all and (max-width: 620px) {
@@ -623,6 +677,7 @@ h2 {
 		font-size: 0px;
 	}
 	.appname {
+		display: none !important;
 	}
 	.left-start {
 		width: 330px;
@@ -630,7 +685,10 @@ h2 {
 	.right-start {
 		width: 330px;
 		margin-bottom: 30px;
-		margin-top: 55px;
+		margin-top: 126px;
+	}
+	.navright{
+
 	}
 }
 
@@ -648,6 +706,7 @@ h2 {
 	.sign-up-button{
 		width: 265px;
 	}
+	
 }
 
 @media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
@@ -727,4 +786,10 @@ h2 {
 		right: 22px;
 		top: 23px;
 	}
+}
+
+.startup-nav{
+	display: grid;
+	grid-template-columns: auto auto;
+	height: 74px;
 }
