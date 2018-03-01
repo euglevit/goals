@@ -87,7 +87,7 @@ $(document).ready(function () {
 					reject(data);
 				}
 			}).done(function (data) {
-				$('.username').replaceWith(`<li class=username>Hello ${username}</li>`);
+				$('.username').replaceWith(`<div class=username>Hello ${username}</div>`);
 				$('.login-username').val('');
 				$('.login-password').val('');
 				$('.logged-in-nav').css('display', '');

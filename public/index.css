@@ -63,7 +63,7 @@ button {
 	border: none;
 	background: #2dbe60;
 	color: white;
-	width: 70px;
+	width: 16%;
 	font-size: 14px;
 }
 
@@ -75,7 +75,7 @@ button {
 	border: none;
 	background: #2dbe60;
 	color: white;
-	width: 70px;
+	width: 16%;
 	font-size: 14px;
 }
 
@@ -159,6 +159,7 @@ button {
 	text-align: center;
 	line-height: 68px;
 	margin-right: 14px;
+	align-self: center;
 }
 
 .goal-button {
@@ -196,6 +197,7 @@ button {
 	position: relative;
 	top: 0.2em;
 	border: none;
+	background-color: white;
 }
 
 .delete-button:hover {
@@ -215,6 +217,7 @@ button {
 	top: 0.2em;
 	border: none;
 	transition: 0.4s;
+	background-color: white;
 }
 
 
@@ -292,9 +295,7 @@ button {
 }
 
 .nav li {
-	align-self:  center;
-	height: 100%;
-	display: inline;
+	list-style-type: none;
 }
 
 .leftbar {
@@ -319,6 +320,7 @@ button {
 
 .logged-in-nav {
 	height: 74px;
+	width: 100%;
 }
 
 .footer p {
@@ -460,7 +462,7 @@ h2 {
 .sign-out {
 	color: white;
 	text-decoration: none;
-	margin-left: 8px;
+	/* margin-left: 8px; */
 	/* font-weight: bold; */
 	font-size: 16px;
 	vertical-align: middle;
@@ -604,6 +606,7 @@ h2 {
 	}
 	.login-form{
 	padding-right: 0px;
+	text-align: center;
 	}
 	.startup-nav{
 		display: flex;
@@ -652,7 +655,8 @@ h2 {
 	.show-updates-button {
 		left: -2%;
 	}
-	.goal-button {}
+	.goal-button {
+}
 	.appname {
 	}
 	.left-start {
@@ -672,6 +676,9 @@ h2 {
 	.show-updates-button {
 		left: -2%;
 	}
+	.nav{
+	display: flex;
+	}
 	.view-updates,
 	.trash {
 		font-size: 0px;
@@ -687,8 +694,11 @@ h2 {
 		margin-bottom: 30px;
 		margin-top: 126px;
 	}
-	.navright{
-
+	.navright{width: 100%;padding-right: 0px;justify-content: center;}
+	.username{
+	}
+	.goal-button{margin-right: 14px;}
+	.sign-out-div{
 	}
 }
 
@@ -766,25 +776,19 @@ h2 {
 	}
 	.navright {
 		margin: auto;
-		width: 373px;
 		text-align: center;
+		display: grid;
+		grid-template-columns: auto auto auto;
+		width: 100%;
 	}
 	.username {
 		text-align: left;
-		position: absolute;
-		left: 10px;
 		vertical-align: middle;
 		line-height: 27px;
 	}
 	.goal-button {
-		position: absolute;
-		left: 176px;
-		top: 2px;
 	}
 	.sign-out {
-		position: absolute;
-		right: 22px;
-		top: 23px;
 	}
 }
 
