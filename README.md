@@ -8,7 +8,7 @@ HitGoal gives users a way to keep track of their progress towards long term goal
 
 [HitGoal](http://hitgoals.herokuapp.com/)
 
-##Instructions
+## Instructions
 1. User can either log in or register for HitGoal. Alternatively, the user can try Demoing the app by hitting the demo button in the navigation bar.
 2. The users goals will display. 
 3. To add a new goal, the user can hit the 'New Goal' button in the navigation bar.
