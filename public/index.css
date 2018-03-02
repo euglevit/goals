@@ -122,6 +122,7 @@ button {
 	font-size: 18px;
 	color: white;
 	font-weight: bold;
+	margin-right: 10px;
 }
 
 .new-goal{
@@ -364,6 +365,7 @@ h2 {
 	align-self: center;
 	justify-self: flex-end;
 	padding-right: 10px;
+	width: 100%;
 }
 
 .login-username {
@@ -435,6 +437,7 @@ h2 {
 	width: 800px;
 	display: block;
 	margin: auto;
+	margin-top: 40px;
 }
 
 .username-form {
@@ -600,7 +603,7 @@ h2 {
 	}
 }
 
-@media all and (max-width: 730px) {
+@media all and (max-width: 745px) {
 	.startup-nav h1{
 		display: none !important;
 	}
@@ -609,7 +612,7 @@ h2 {
 	text-align: center;
 	}
 	.startup-nav{
-		display: flex;
+		grid-template-columns: auto !important;
 		/* justify-content: space-around; */
 		/* align-content: space-around; */
 		height: 100%;
